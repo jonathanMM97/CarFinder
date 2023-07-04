@@ -166,6 +166,20 @@ header {
       left: 0;
       margin-top: 0;
     }
+
+    .mobile-nav-enter-active,
+    .mobile-nav-leave-active {
+      transition: 1s ease all;
+    }
+
+    .mobile-nav-enter-from,
+    .mobile-nav-leave-to{
+      transform: translateX(-250px);
+    } 
+
+    .mobile-nav-enter-to {
+      transform: translateX(0);
+    }
   }
 }
 
