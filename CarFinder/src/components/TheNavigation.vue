@@ -8,19 +8,15 @@
         <li><router-link class="nav-link" to="/">Home</router-link></li>
         <li><router-link class="nav-link" to="/">Products</router-link></li>
         <li><router-link class="nav-link" to="/">Past-Orders</router-link></li>
-        <li><router-link class="nav-link" to="/">About us</router-link></li>
-        <li><router-link class="nav-link" to="/">Contact</router-link></li>
       </ul>
       <div class="icon">
-        <i @click="toffleMobileNav" v-show="mobile" class="far fa-bars" :class="{ 'icon-active': movileNav }"></i>
+        <i @click="toggleMobileNav" v-show="mobile" class="far fa-bars" :class="{ 'icon-active': mobileNav }"></i>
       </div>
       <transition name="mobile-nav">
         <ul v-show="mobileNav" class="dropdown-nav">
-          <li><router-linl class="nav-link" to="/">Home</router-linl></li>
-          <li><router-linl class="nav-link" to="/">Products</router-linl></li>
-          <li><router-linl class="nav-link" to="/">Past-Orders</router-linl></li>
-          <li><router-linl class="nav-link" to="/">About us</router-linl></li>
-          <li><router-linl class="nav-link" to="/">Contact</router-linl></li>
+          <li><router-link class="nav-link" to="/">Home</router-link></li>
+          <li><router-link class="nav-link" to="/">Products</router-link></li>
+          <li><router-link class="nav-link" to="/">Past-Orders</router-link></li>
         </ul>
       </transition>
     </nav>
@@ -33,13 +29,13 @@ export default{
   data() {
     return {
       scrollPosition: null,
-      mobile: null,
+      mobile: true,
       mobileNav: null,
       windowWidth: null,
     };
   },
   methods: {
-    toggleMovileNav() {
+    toggleMobileNav() {
       this.mobileNav = !this.mobileNav;
     },
   },
@@ -136,16 +132,10 @@ header {
       width: 100%;
       max-width: 250px;
       height: 100%;
-      background-color: #fff;
+      background-color: #000;
       top: 0;
       left: 0;
-    }
-
-    li {
-      margin-left: 0;
-      .nav-link {
-        color: #000;
-      }
+      margin-top: 0;
     }
   }
 }
