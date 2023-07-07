@@ -15,5 +15,6 @@ import TheNavigation from './components/TheNavigation.vue';
 
 .main{
   align-items: center;
+  font-family: 'eMontserrat', 'Montserrat', sans-serif;
 }
 </style>
