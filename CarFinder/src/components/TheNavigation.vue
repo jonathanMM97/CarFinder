@@ -8,7 +8,7 @@
       </div>
       <ul v-show="!mobile" class="navigation">
         <li><router-link class="nav-link" to="/">Home</router-link></li>
-        <li><router-link class="nav-link" to="/">Products</router-link></li>
+        <li><router-link class="nav-link" to="/questions">Products</router-link></li>
         <li><router-link class="nav-link" to="/">Past-Orders</router-link></li>
       </ul>
       <div class="icon">
