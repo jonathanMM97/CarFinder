@@ -9,7 +9,7 @@
       <ul v-show="!mobile" class="navigation">
         <li><router-link class="nav-link" to="/">Home</router-link></li>
         <li><router-link class="nav-link" to="/questions">Products</router-link></li>
-        <li><router-link class="nav-link" to="/">Past-Orders</router-link></li>
+        <li><router-link class="nav-link" to="/manage">Gestionar</router-link></li>
       </ul>
       <div class="icon">
         <i @click="toggleMobileNav" v-show="mobile" class="far fa-bars" :class="{ 'icon-active': mobileNav }"></i>
@@ -17,8 +17,8 @@
       <transition name="mobile-nav">
         <ul v-show="mobileNav" class="dropdown-nav">
           <li><router-link class="nav-link" to="/">Home</router-link></li>
-          <li><router-link class="nav-link" to="/">Products</router-link></li>
-          <li><router-link class="nav-link" to="/">Past-Orders</router-link></li>
+          <li><router-link class="nav-link" to="/questions">Products</router-link></li>
+          <li><router-link class="nav-link" to="/manage">Gestionar</router-link></li>
         </ul>
       </transition>
     </nav>

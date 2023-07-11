@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import SingupView from '../views/SingupView.vue'
 import QuestionsView from '../views/QuestionsView.vue'
+import ManageView from '../views/ManageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/questions',
       name: 'questions',
       component: QuestionsView
+    },
+    {
+      path: '/manage',
+      name: 'manage',
+      component: ManageView
     }
   ]
 })
