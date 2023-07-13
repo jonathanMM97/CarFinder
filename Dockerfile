@@ -8,7 +8,7 @@ RUN npm ci
 COPY . /app/
 #COPY public/ public/
 #COPY src/ src/
-RUN npm run dev
+RUN npm run build
 RUN npm install -g serve
 
 # Uses port which is used by the actual application
