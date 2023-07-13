@@ -12,7 +12,7 @@ RUN npm run build
 RUN npm install -g serve
 
 # Uses port which is used by the actual application
-EXPOSE 5173
+EXPOSE 3000
 # Run application
 ##CMD [ "npm", "start" ]
 CMD serve -s -n build
