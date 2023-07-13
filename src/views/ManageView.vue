@@ -1,5 +1,7 @@
 <template>
-
+  <div v-for="vehicules in vehicules">
+    {{ vehicules }}
+  </div>
 </template>
 
 <script>

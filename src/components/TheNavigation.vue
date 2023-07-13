@@ -74,6 +74,7 @@ export default{
 <style lang="scss" scoped>
 header {
   background-color: rgba(0, 0, 0, 0.8);
+  font-family: 'Montserrat', sans-serif;
   position: fixed;
   z-index: 99;
   width: 100%;
