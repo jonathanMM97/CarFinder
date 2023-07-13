@@ -1,7 +1,7 @@
 FROM node:20.4.0-alpine AS build
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+#COPY package.json package-lock.json ./
 # COPY .env ./
 RUN npm ci
 
