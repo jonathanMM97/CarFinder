@@ -4,8 +4,8 @@ import TheNavigation from './components/TheNavigation.vue';
 </script>
 
 <template>
+  <TheNavigation />
   <div class="main">
-    <TheNavigation />
     <router-view></router-view>
   </div>
   
@@ -15,6 +15,7 @@ import TheNavigation from './components/TheNavigation.vue';
 
 .main{
   align-items: center;
-  font-family: 'eMontserrat', 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 12%;
 }
 </style>
