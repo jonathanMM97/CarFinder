@@ -5,8 +5,9 @@ COPY package.json package-lock.json ./
 # COPY .env ./
 RUN npm ci
 
-COPY public/ public/
-COPY src/ src/
+COPY . /app/
+#COPY public/ public/
+#COPY src/ src/
 RUN npm run dev
 RUN npm install -g serve
 
