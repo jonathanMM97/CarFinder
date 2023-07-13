@@ -31,7 +31,8 @@ const router = createRouter({
     {
       path: '/manage',
       name: 'manage',
-      component: ManageView
+      component: ManageView,
+      props: route => ({ query: route.query.q })
     }
   ]
 })

@@ -50,12 +50,14 @@ export default {
 
 .navigate {
   padding: 0 16px;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vh;
+  margin-left: 3rem;
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-position: center;
 
   .toggle-page {
     display: flex;
@@ -72,7 +74,12 @@ export default {
     height: 40px;
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
+    transition: 0.8s ease all;
   }
+
+  i:hover {
+    background-color: #00afea;
+  } 
 }
 
 </style>
