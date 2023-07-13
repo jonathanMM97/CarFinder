@@ -7,7 +7,7 @@ RUN npm ci
 
 COPY public/ public/
 COPY src/ src/
-RUN npm run build
+RUN npm run dev
 RUN npm install -g serve
 
 # Uses port which is used by the actual application
