@@ -14,8 +14,9 @@ import TheNavigation from './components/TheNavigation.vue';
 <style scoped>
 
 .main{
+  width: 100%;
+  height: 100%;
   align-items: center;
   font-family: 'Montserrat', sans-serif;
-  margin-top: 12%;
 }
 </style>

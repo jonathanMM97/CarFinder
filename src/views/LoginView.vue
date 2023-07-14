@@ -39,13 +39,12 @@
     right: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    background: #ffffff;
     border-radius: 10%;
 
     h1 {
       text-align: center;
       padding: 0 0 20px 0;
-      border-bottom: 1px solid silver;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.8);
     }
 
     form {
@@ -55,7 +54,7 @@
 
     .form-control {
       position: relative;
-      border-bottom: 2px solid #adadad;
+      border-bottom: 2px solid #fff;
       margin: 30px 0;
 
       input {
@@ -65,14 +64,14 @@
         font-size: 16px;
         border: none;
         background: none;
-        outline: none;
+        outline: none
       }
 
       label {
         position: absolute;
         top: 50%;
         left: 5px;
-        color: #adadad;
+        color: rgba(0, 0, 0, 0.8);
         transform: translateY(-50%);
         font-size: 16px;
         pointer-events: none;
