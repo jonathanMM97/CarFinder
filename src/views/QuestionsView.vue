@@ -22,14 +22,14 @@
 
 
 
-  <a class="product" v-show="showProducts" v-for="vehicules in vehicules" :href="vehicules.links[0].link">
+  <div class="product" v-show="showProducts" v-for="vehicules in vehicules">
     <img class="item" :src="vehicules.images[0]">
     <div class="product__info">
       <h1>{{ vehicules.title }}</h1>
-      <h2>{{ vehicules.price }}</h2>
-      <span>{{ vehicules.links[0].origin }}</span>
+      <h2>{{ vehicules.price }} €</h2>
+      <a class="item-link" :href="vehicules.links[0].link">{{ vehicules.links[0].origin }}</a>
     </div>
-  </a>
+  </div>
 </template>
 
 <script>
@@ -55,6 +55,7 @@ export default {
       showProducts: false,
       currentSlides: null,
       image: [clio, diesel, expensive, jeep4x4, kilometres, manual, monovolumen, priceCar, security, sport],
+      logos: ["../assets/autoscout.png", "../assets/coches77.png", "../assets/cochesnet.png", "../assets/keycar.png", "../assets/motores.png", "../assets/motorgiga.png", "../assets/wallapop.png"],
       checked: [],
       list:[],
       vehicules: []
@@ -177,16 +178,39 @@ export default {
 
 .product {
   display: flex;
-  border-radius: 2px solid rgba(0, 0, 0, 0.8);
+  width: 500px;
+  height: 250px;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: #fff;
+  border-radius: 20%;
   .item{
-    width: 25%;
-    height: 25%;
+    width: 250px;
+    height: 250px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
   }
 
   &__info{
-    margin-left: 2rem;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    width: 250px;
+    height: 250px;
+    color: red;
     h1{
+      width: 100%;
+      height: 20%;
       font-size: 16px;
+      color: rgba(0, 0, 0, 0.8);
+    }
+    h2 {
+      width: 100%;
+      height: 25%;
+      text-align: center;
+    }
+    .item-link {
+      text-decoration: none;
+      color: #00afea;
     }
   }
 }
