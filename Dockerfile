@@ -9,10 +9,10 @@ COPY . /app/
 #COPY public/ public/
 #COPY src/ src/
 RUN npm run build
-RUN npm install -g serve
+#RUN npm preview
 
 # Uses port which is used by the actual application
-EXPOSE 3000
+#EXPOSE 3000
 # Run application
-##CMD [ "npm", "start" ]
-CMD serve -s -n build
+CMD [ "npm", "run", "preview" ]∫
+#CMD serve -s -n build
