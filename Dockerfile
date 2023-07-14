@@ -14,5 +14,5 @@ RUN npm run build
 # Uses port which is used by the actual application
 EXPOSE 3000
 # Run application
-CMD [ "npm", "run", "preview", "--host 0.0.0.0" ]
+CMD [ "npm", "run", "preview" ]
 #CMD serve -s -n build
