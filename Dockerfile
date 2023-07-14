@@ -12,7 +12,7 @@ RUN npm run build
 #RUN npm preview
 
 # Uses port which is used by the actual application
-#EXPOSE 3000
+EXPOSE 3000
 # Run application
-CMD [ "npm", "run", "preview" ]∫
+CMD [ "npm", "run", "preview", "--host 0.0.0.0" ]
 #CMD serve -s -n build
