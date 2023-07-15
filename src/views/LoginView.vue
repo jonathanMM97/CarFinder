@@ -1,4 +1,5 @@
 <script setup>
+import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
 </script>
 
 <template>
@@ -26,6 +27,10 @@
 
           <div class="signup">
             Not a member? <router-link class="signup__link" to="/signup">Signup</router-link>
+          </div>
+
+          <div>
+            <GoogleLoginButton />
           </div>
         </form>
   </div>

@@ -18,7 +18,7 @@
         <ul v-show="mobileNav" class="dropdown-nav">
           <li><router-link class="nav-link" to="/">Home</router-link></li>
           <li><router-link class="nav-link" to="/questions">Products</router-link></li>
-          <li><router-link class="nav-link" to="/manage">Gestionar</router-link></li>
+          <li><router-link class="nav-link" to="http://localhost:8080/quiz/answer/bulk">Gestionar</router-link></li>
         </ul>
       </transition>
     </nav>
