@@ -1,18 +1,37 @@
-FROM node:20.4.0-alpine AS build
+FROM node:20.4.0-alpine
+
+RUN npm install -g http-server
+
+RUN mkdir /app
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-# COPY .env ./
-RUN npm ci
+COPY package*.json ./
 
-COPY . /app/
-#COPY public/ public/
-#COPY src/ src/
+RUN npm install
+
+COPY . .
+
 RUN npm run build
-#RUN npm preview
 
-# Uses port which is used by the actual application
-EXPOSE 3000
-# Run application
-CMD [ "npm", "run", "preview" ]
-#CMD serve -s -n build
+EXPOSE 8081
+
+CMD ["http-server", "dist"]
+
+#
+# # COPY .env ./
+# RUN npm install -g http-server
+#
+# COPY package.json package-lock.json ./
+#
+# RUN npm install
+#
+# COPY . /app/
+# #COPY public/ public/
+# #COPY src/ src/
+# RUN npm run build
+#
+# # Uses port which is used by the actual application
+# EXPOSE 3000
+# # Run application
+# CMD [ "http-server", "dist" ]
+# #CMD serve -s -n build
