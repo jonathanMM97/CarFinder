@@ -10,6 +10,16 @@
         <li><router-link class="nav-link" to="/">Home</router-link></li>
         <li><router-link class="nav-link" to="/questions">Products</router-link></li>
         <li><router-link class="nav-link" to="/manage">Gestionar</router-link></li>
+        <div v-if="user" class="dropdown" @click="toggleSubMenu">
+            <img :src="user.pictureUrl" class="user-avatar">
+            <span class="user-name">{{ user.name }}</span>
+            <div class="dropdown-menu" v-show="showSubMenu">
+                <a class="dropdown-item" href="http://localhost:8080/logout">Logout</a>
+            </div>
+        </div>
+        <div v-else class="login-link">
+            <router-link to="/login">Inicia Sesión</router-link>
+        </div>
       </ul>
       <div class="icon">
         <i @click="toggleMobileNav" v-show="mobile" class="far fa-bars" :class="{ 'icon-active': mobileNav }"></i>
@@ -26,17 +36,21 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default{
   name: "navigation",
   data() {
     return {
+      user: null,
       scrolledNav: null,
       mobile: null,
       mobileNav: null,
       windowWidth: null,
+      showSubMenu: false,
     };
   },
   created() {
+    this.fetchUserInfo();
     window.addEventListener('resize', this.checkScreen);
     this.checkScreen();
   },
@@ -65,6 +79,17 @@ export default{
       this.mobile = false;
       this.mobileNav = false;
       return;
+    },
+    fetchUserInfo() {
+        axios.get('http://localhost:8080/userInfo', { withCredentials: true })
+        .then(response => {
+            this.user = response.data;
+        }).catch(error => {
+            console.error('Error al obtener la información del usuario:', error);
+        });
+    },
+    toggleSubMenu() {
+        this.showSubMenu = !this.showSubMenu;
     },
   },
 };
@@ -180,6 +205,12 @@ header {
 
     .mobile-nav-enter-to {
       transform: translateX(0);
+    }
+
+    .user-avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
     }
   }
 }
