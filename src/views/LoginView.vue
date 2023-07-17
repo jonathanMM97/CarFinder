@@ -3,7 +3,7 @@ import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
 </script>
 
 <template>
-  <div class="LoginPage">
+  <div v-show="false" class="LoginPage">
         <h1>Login</h1>
         <form class="login-form">
 
@@ -28,15 +28,20 @@ import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
           <div class="signup">
             Not a member? <router-link class="signup__link" to="/signup">Signup</router-link>
           </div>
-
-          <div>
-            <GoogleLoginButton />
-          </div>
         </form>
+  </div>
+  <div class="login">
+    <GoogleLoginButton />
   </div>
 </template>
 
 <style lang="scss" scoped>
+
+  .login{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+  }
   .LoginPage {
     position: absolute;
     top: 50%;

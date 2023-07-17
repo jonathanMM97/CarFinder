@@ -111,7 +111,7 @@ export default {
       text-decoration: none;
       cursor: pointer;
       margin: 190px;
-      border-radius: 10%;
+      border-radius: 20px;
       transition: 0.8s;
       position: relative;
       overflow: hidden;
@@ -170,7 +170,7 @@ export default {
     width: 400px;
     height: 500px;
     background: linear-gradient(to bottom, #fff, #201f1d);
-    box-shadow: 0px 4px 10px #00afea;
+    box-shadow: 0px 10px 10px #00afea;
     border-radius: 20%;
     color: #fff;
 
