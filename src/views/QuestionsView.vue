@@ -100,7 +100,7 @@ export default {
   .q-answer {
     position: relative;
     z-index: 1;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 31px;
     justify-content: center;
     margin: 10px 30vh;

@@ -11,11 +11,15 @@
         <li><router-link class="nav-link" to="/questions">Products</router-link></li>
         <li><router-link class="nav-link" to="/manage">Gestionar</router-link></li>
         <div v-if="user" class="dropdown" @click="toggleSubMenu">
-            <img :src="user.pictureUrl" class="user-avatar">
-            <span class="user-name">{{ user.name }}</span>
-            <div class="dropdown-menu" v-show="showSubMenu">
-                <a class="dropdown-item" href="http://localhost:8080/logout">Logout</a>
-            </div>
+            <img @click="showinfoNav" :src="user.pictureUrl" class="user-avatar">
+            <transition name="user-info">
+              <ul v-show="infoNav" class="info-nav">
+                <span class="user-name">{{ user.name }}</span>
+                <div class="dropdown-menu" v-show="showSubMenu">
+                    <a class="nav-link" href="http://localhost:8080/logout">Logout</a>
+                </div>
+              </ul>
+            </transition>
         </div>
         <div v-else class="login">
             <router-link class="login__link" to="/login">Iniciar Sesión</router-link>
@@ -47,6 +51,7 @@ export default{
       mobileNav: null,
       windowWidth: null,
       showSubMenu: false,
+      infoNav: false,
     };
   },
   created() {
@@ -91,6 +96,9 @@ export default{
     toggleSubMenu() {
         this.showSubMenu = !this.showSubMenu;
     },
+    showinfoNav() {
+      this.infoNav = !this.infoNav;
+    }
   },
 };
 </script>
@@ -141,7 +149,6 @@ header {
 
       &:hover{
         color: #00afea;
-        border-color: #00afea;
       }
     }
 
@@ -197,6 +204,19 @@ header {
       transform: rotate(180deg);
     }
 
+    .info-nav {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      border-bottom-left-radius: 30px;
+      width: 100%;
+      max-width: 250px;
+      height: 10%;
+      background-color: rgba(0, 0, 0, 0.8);
+      top: 6.7rem;
+      left: 80%;
+    }
+
     .dropdown-nav {
       display: flex;
       flex-direction: column;
@@ -228,6 +248,17 @@ header {
         width: 45px;
         height: 45px;
         border-radius: 50%;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .user-name {
+      color: #fff;
+      margin-bottom: 2rem;
+    }
+
+    .user-avatar:hover{
+      box-shadow: 0 0 20px #00afea
     }
   }
 }
