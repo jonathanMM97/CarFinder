@@ -17,8 +17,8 @@
                 <a class="dropdown-item" href="http://localhost:8080/logout">Logout</a>
             </div>
         </div>
-        <div v-else class="login-link">
-            <router-link to="/login">Inicia Sesión</router-link>
+        <div v-else class="login">
+            <router-link class="login__link" to="/login">Iniciar Sesión</router-link>
         </div>
       </ul>
       <div class="icon">
@@ -160,6 +160,23 @@ header {
       align-items: center;
       flex: 1;
       justify-content: flex-end;;
+    }
+
+    .login__link {
+      text-transform: uppercase;
+      border: 2px solid #fff;
+      border-radius: 20px;
+      padding: 0 5px;
+      text-decoration: none;
+      text-decoration-style: none;
+      color: #fff;
+      transition: 0.5s ease all;
+    }
+
+    .login__link:hover {
+      border: 2px solid #00afea;
+      background: #00afea;
+      color: rgba(0, 0, 0, 0.8);
     }
     .icon{
       display: flex;

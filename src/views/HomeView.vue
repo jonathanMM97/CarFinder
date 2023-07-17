@@ -63,7 +63,7 @@ export default {
   position: absolute;
   display: flex;
   width: 100%;
-  height: 90%;
+  height: 100%;
   top: 0;
   left: 0;
   font-family: 'Lato', sans-serif;
@@ -155,7 +155,6 @@ export default {
 
 .features {
   margin-top: 6rem;
-  margin-left: 6rem;
   display: flex;
   width: 100%;
   height: 66%;
@@ -166,7 +165,7 @@ export default {
   .ftr{
     display: flex;
     flex-direction: column;
-    margin-left: 6rem;
+    margin-left: 4rem;
     overflow: hidden;
     width: 400px;
     height: 500px;
