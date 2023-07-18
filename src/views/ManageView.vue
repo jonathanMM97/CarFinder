@@ -1,4 +1,7 @@
 <template>
+  <button v-show="list.length === 0" @click="addAll" class="btn-add">
+    Add questions
+  </button>
   <div class="manage-questions" v-show="manageQuestions" v-if="list.length > 0">
     <div class="btn">
       <input class="btn search-q" type="text">
@@ -19,7 +22,7 @@
             <ul v-for="ask in question.answers">
               <li class="items">
                 {{ ask.text }}
-                <button class="btn btn-delete2">
+                <button @click="deleteAnswer(ask.id)" class="btn btn-delete2">
                   <img class="trash-item" src="../assets/trash.png">
                   Delete
                 </button>
@@ -52,14 +55,7 @@ export default {
     }
   },
   async mounted() {
-    try {
-      const response = await axios.get('http://localhost:8080/question', { withCredentials: true });
-      console.log(response.data);
-      this.list = response.data;
-      this.manageQuestions = true;
-    } catch (error) {
-      console.error(error);
-    }
+    this.getQuestions();
   },
   methods: {
     showInfoQuest(index) {
@@ -73,13 +69,46 @@ export default {
     },
     async deleteall() {
       let response = await axios.delete('http://localhost:8080/question/bulk', {withCredentials: true});
-      console.log(response.data);
+      this.list = [];
+    },
+    async deleteAnswer(index) {
+      let response = await axios.delete('http://localhost:8080/answer', {withCredentials: true}, index);
+    },
+    async addAll() {
+      let response = await axios.post("http://localhost:8080/question/bulkDefault", {withCredentials: true});
+      this.getQuestions();
+    },
+    async getQuestions() {
+      try {
+        let response = await axios.get('http://localhost:8080/question', { withCredentials: true });
+        await this.$nextTick();
+        this.list = [...response.data];
+        this.manageQuestions = true;
+      } catch (error) {
+        console.error(error);
+      }
     }
   },
 };
 </script>
 
 <style lang="scss" scoped>
+
+.btn-add {
+  position: absolute;
+  top: 5.7rem;
+  left: 0;
+  margin-top: 10rem;
+  text-align: center;
+  padding: 10px 20px;
+  margin-left: 2rem;
+  font-size: 16px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: #12fc2d;
+  color: rgba(0, 0, 0, 0.8);
+}
 
 h1 {
   position: absolute;
