@@ -1,6 +1,6 @@
 <template>
 
-    <v-slot :manageQuestions="manageQuestions"></v-slot>
+    <v-slot :manageQuestions="manageQuestions" :isLoading="isLoading"></v-slot>
 
 
     <button v-show="list.length === 0" @click="addAll" class="btn-add">
@@ -38,8 +38,9 @@
           </div>
         </a>
       </div>
-      
     </div>
+
+    <Loading v-show="isLoading"></Loading>
 </template>
 
 
@@ -47,9 +48,13 @@
 
 <script>
 import axios from 'axios';
+import Loading from '../components/Loading.vue'
+
 export default {
+  components: { Loading},
   data() {
     return {
+      isLoading: false,
       infoQuest: {},
       list: [],
       manageQuestions: false,
@@ -80,11 +85,14 @@ export default {
       this.getQuestions();
     },
     async deleteQuestion(index) {
+
       this.isLoading = true;
+
       let path_ = 'http://localhost:8080/question/' + index;
       await axios.delete(path_, {withCredentials: true});
       await new Promise(resolve => setTimeout(resolve, 2000));
       await this.getQuestions();
+
       this.isLoading = false;
     },
     async addAll() {
@@ -114,6 +122,31 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.load {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 40%;
+    left: 40%;
+}
+
+.rim-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .btn-add {
   position: absolute;
