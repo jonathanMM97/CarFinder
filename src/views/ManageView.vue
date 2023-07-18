@@ -86,6 +86,7 @@ export default {
       try {
         let response = await axios.get('http://localhost:8080/question', { withCredentials: true });
         console.log(response.data);
+        
         this.list = [...response.data];
         this.manageQuestions = true;
       } catch (error) {
