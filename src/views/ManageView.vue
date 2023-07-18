@@ -72,7 +72,11 @@ export default {
       this.list = [];
     },
     async deleteAnswer(index) {
-      let response = await axios.delete('http://localhost:8080/answer', {withCredentials: true}, index);
+      let path_ = 'http://localhost:8080/answer/' + index;
+      let response = await axios.delete(path_, {withCredentials: true});
+      console.log(response);
+      this.list = [];
+      this.getQuestions();
     },
     async addAll() {
       let response = await axios.post("http://localhost:8080/question/bulkDefault", {withCredentials: true});
@@ -81,7 +85,8 @@ export default {
     async getQuestions() {
       try {
         let response = await axios.get('http://localhost:8080/question', { withCredentials: true });
-        await this.$nextTick();
+        console.log(response.data);
+        
         this.list = [...response.data];
         this.manageQuestions = true;
       } catch (error) {
