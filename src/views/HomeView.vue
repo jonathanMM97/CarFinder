@@ -68,9 +68,9 @@ export default {
   left: 0;
   font-family: 'Lato', sans-serif;
   background-image: url("../assets/logo.png");
-  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
   justify-items: center;
   flex-direction: column;
 
@@ -130,7 +130,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 50rem;
+  top: 44.4rem;
   left: 0;
   background-color: #201f1d;
   background-size: cover;
