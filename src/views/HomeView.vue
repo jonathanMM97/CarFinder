@@ -63,13 +63,13 @@ export default {
   position: absolute;
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
   left: 0;
   font-family: 'Lato', sans-serif;
   background-image: url("../assets/logo.png");
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
   background-size: contain;
   justify-items: center;
   flex-direction: column;
