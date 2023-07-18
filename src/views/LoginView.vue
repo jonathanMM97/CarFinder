@@ -1,5 +1,6 @@
 <script setup>
 import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
+
 </script>
 
 <template>
