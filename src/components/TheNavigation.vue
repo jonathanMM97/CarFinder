@@ -106,7 +106,7 @@ export default{
 
 <style lang="scss" scoped>
 header {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 1);
   font-family: 'Montserrat', sans-serif;
   position: fixed;
   z-index: 99;
@@ -120,7 +120,7 @@ header {
     position: relative;
     display: flex;
     flex-direction: row;
-    padding: 12px 0;
+    padding: 14px 0;
     transition: 0.5s ease all;
     width: 90%;
     margin: 0 auto;
