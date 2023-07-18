@@ -1,6 +1,6 @@
 <template>
   <Carousel v-show="!showProducts" v-slot="{ currentSlide, nextSlide, finished }">
-    <div v-show="currentSlide  === i + 1" class="container" v-for="(item, i) in list" :key="i" v-bind:style="{'background-image': 'url(' + image[i] + ')'}">
+    <div v-show="currentSlide  === i + 1" class="container" v-for="(item, i) in list" :key="i" v-bind:style="{'background-image': 'url(' + getRandomImage() + ')'}">
       <h1>{{ i+1 }}. {{ item.text }}</h1>
 
       <div class="q-answer">
@@ -68,7 +68,10 @@ export default {
         console.log(this.vehicules.images);
         this.showProducts = true;
     },
-
+    getRandomImage() {
+        const randomIndex = Math.floor(Math.random() * this.image.length);
+        return this.image[randomIndex];
+    },
   }
   ,
   async mounted(){
