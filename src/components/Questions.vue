@@ -13,7 +13,7 @@
           <img class="trash-item" src="../assets/trash.png">
           Delete all
         </button>
-        <a @click="showInfoQuest(question.id)" class="questions" v-for="question in list" :key="question.id">
+        <a @click="showInfoQuest(question.id)" class="questions" v-for="(question, i) in list" :key="question.id">
           <div class="text-quest">
             {{ question.id }} {{ question.text }}
             <i @click.stop="hideInfoQuest(question.id)" v-show="isInfoQuest(question.id)" class="fa-solid fa-xmark fa-lg"></i>
@@ -24,7 +24,7 @@
               <ul v-for="ask in question.answers">
                 <li class="items">
                   {{ ask.text }}
-                  <button @click="deleteAnswer(ask.id)" class="btn btn-delete2">
+                  <button @click="deleteAnswer(ask.id, question.id, i)" class="btn btn-delete2">
                     <img class="trash-item" src="../assets/trash.png">
                     Delete
                   </button>
@@ -77,12 +77,17 @@ export default {
       let response = await axios.delete('http://localhost:8080/question/bulk', {withCredentials: true});
       this.list = [];
     },
-    async deleteAnswer(index) {
-      let path_ = 'http://localhost:8080/answer/' + index;
+    async deleteAnswer(indexAnsw, indexQuest, index) {
+      this.isLoading = true;
+
+      let path_ = 'http://localhost:8080/answer/' + indexAnsw;
+      let path_2 = 'http://localhost:8080/question/' + indexQuest;
       let response = await axios.delete(path_, {withCredentials: true});
-      console.log(response);
-      this.list = [];
-      this.getQuestions();
+      let response2 = await axios.get(path_2, {withCredentials: true});
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      this.list[index] = response2.data;
+
+      this.isLoading = false;
     },
     async deleteQuestion(index) {
 
@@ -97,9 +102,11 @@ export default {
     },
     async addAll() {
       this.isLoading = true;
+
       let response = await axios.post("http://localhost:8080/question/bulkDefault", {withCredentials: true});
       await new Promise(resolve => setTimeout(resolve, 2000));
       await this.getQuestions();
+      
       this.isLoading = false;
     },
     async getQuestions() {
