@@ -1,11 +1,11 @@
 <template>
   <Carousel v-show="!showProducts" v-slot="{ currentSlide, nextSlide, finished }">
-    <div v-show="currentSlide  === i + 1" class="container" v-for="(item, i) in list" :key="i" v-bind:style="{'background-image': 'url(' + getRandomImage() + ')'}">
+    <div v-show="currentSlide  === i + 1" class="container" v-for="(item, i) in list" :key="i" v-bind:style="{'background-image': 'url(' + getImage() + ')'}">
       <h1>{{ i+1 }}. {{ item.text }}</h1>
 
       <div class="q-answer">
         <div v-for="(answer, j) in item.answers" :key="j">
-          <label :for="'question_' + i + '_answer_' + j">
+          <label :for="'question_' + i + '_answer_' + j" @mouseover="changeImage(answer.text)">
             <input type="radio" @click="nextSlide" :id="'question_' + i + '_answer_' + j" :value="answer.id" :name="'question_' + i" v-model="checked[i]">
               <span>{{ answer.text }}</span>
           </label>
@@ -19,17 +19,13 @@
     </div>
   </Carousel>
 
-
-
-
-  <div class="product" v-show="showProducts" v-for="vehicules in vehicules">
-    <img class="item" :src="vehicules.images[0]">
+  <a class="product" v-show="showProducts" v-for="vehicules in vehicules" :href="vehicules.link">
+    <img class="item" :src="vehicules.image">
     <div class="product__info">
       <h1>{{ vehicules.title }}</h1>
       <h2>{{ vehicules.price }} €</h2>
-      <a class="item-link" :href="vehicules.links[0].link">{{ vehicules.links[0].origin }}</a>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -54,7 +50,7 @@ export default {
       index: 9,
       showProducts: false,
       currentSlides: null,
-      image: [clio, diesel, expensive, jeep4x4, kilometres, manual, monovolumen, priceCar, security, sport],
+      image: clio,
       logos: ["../assets/autoscout.png", "../assets/coches77.png", "../assets/cochesnet.png", "../assets/keycar.png", "../assets/motores.png", "../assets/motorgiga.png", "../assets/wallapop.png"],
       checked: [],
       list:[],
@@ -68,15 +64,41 @@ export default {
         console.log(this.vehicules.images);
         this.showProducts = true;
     },
-    getRandomImage() {
-        const randomIndex = Math.floor(Math.random() * this.image.length);
-        return this.image[randomIndex];
+    changeImage(answerText){
+      switch(true) {
+        case answerText.includes('Elegante'): this.image = expensive;
+        break;
+        case answerText.includes('funcional'): this.image = clio;
+        break;
+        case answerText.includes('Deportivo'): this.image = sport;
+        break;
+        case answerText.includes('Confort'): this.image = monovolumen;
+        break;
+        case answerText.includes('Velocidad'): this.image = sport;
+        break;
+        case answerText.includes('libertad'): this.image = jeep4x4;
+        break;
+        case answerText.includes('ahorro'): this.image = clio;
+        break;
+        case answerText.includes('Ciudad'): this.image = clio;
+        break;
+        case answerText.includes('Carreteras'): this.image = kilometres;
+        break;
+        case answerText.includes('terreno'): this.image = jeep4x4;
+        break;
+        case answerText.includes('Elegante'): this.image = expensive;
+        break;
+      }
+    },
+    getImage() {
+        return this.image;
     },
   }
   ,
   async mounted(){
     let result = await axios.get("http://localhost:8080/quiz/round");
     this.list = result.data;
+    console.log(result.data);
   },
   components: {Carousel},
 };
