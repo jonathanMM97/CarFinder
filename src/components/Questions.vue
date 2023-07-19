@@ -3,17 +3,20 @@
     <v-slot :manageQuestions="manageQuestions" :isLoading="isLoading"></v-slot>
 
 
-    <button v-show="list.length === 0" @click="addAll" class="btn-add">
-      Add questions
-    </button>
+    <div class="restore">
+      <button @click="addAll" class="btn btn-add">
+        Restore questions
+      </button>
+      <button @click="deleteall" class="btn btn-delete">
+        <img class="trash-item" src="../assets/trash.png">
+        Delete all
+      </button>
+    </div>
+
     <div class="manage-questions" v-show="manageQuestions" v-if="list.length > 0">
       <div class="btn">
         <input class="btn search-q" type="text">
-        <button @click="deleteall" class="btn btn-delete">
-          <img class="trash-item" src="../assets/trash.png">
-          Delete all
-        </button>
-        <a @click="showInfoQuest(question.id)" class="questions" v-for="(question, i) in list" :key="question.id">
+        <a @click="showInfoQuest(question.id)" class="questions" v-for="(question, i) in sortedList" :key="question.id">
           <div class="text-quest">
             {{ question.id }} {{ question.text }}
             <i @click.stop="hideInfoQuest(question.id)" v-show="isInfoQuest(question.id)" class="fa-solid fa-xmark fa-lg"></i>
@@ -60,6 +63,13 @@ export default {
       manageQuestions: false,
     }
   },
+  computed: {
+    sortedList() {
+      const uniqueList = Array.from(new Set(this.list.map(item => item.id)));
+      const sortedUniqueList = uniqueList.sort((a, b) => a - b);
+      return sortedUniqueList.map(id => this.list.find(item => item.id === id));
+    }
+  },
   async mounted() {
     this.getQuestions();
   },
@@ -82,10 +92,11 @@ export default {
 
       let path_ = 'http://localhost:8080/answer/' + indexAnsw;
       let path_2 = 'http://localhost:8080/question/' + indexQuest;
-      let response = await axios.delete(path_, {withCredentials: true});
-      let response2 = await axios.get(path_2, {withCredentials: true});
+      await axios.delete(path_, {withCredentials: true});
       await new Promise(resolve => setTimeout(resolve, 2000));
-      this.list[index] = response2.data;
+      let response2 = await axios.get(path_2, {withCredentials: true});
+      this.list[index] = '';
+      this.list.splice(index, 1, response2.data);
 
       this.isLoading = false;
     },
@@ -130,6 +141,28 @@ export default {
 
 <style lang="scss" scoped>
 
+.restore {
+  margin-top: 20vh;
+  margin-left: 60vh;
+  button {
+      padding: 10px 20px;
+      margin-left: 2rem;
+      font-size: 16px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: #ee4848;
+      color: #fff;
+      .trash-item{
+        width: 15px;
+        height: 15px;
+      }
+  }
+  .btn-add {
+      background: #74f339;
+      color: rgba(0, 0, 0, 0.8);
+    }
+}
 .load {
     position: fixed;
     width: 150px;
@@ -153,22 +186,6 @@ export default {
     100% {
         transform: rotate(360deg);
     }
-}
-
-.btn-add {
-  position: absolute;
-  top: 5.7rem;
-  left: 0;
-  margin-top: 10rem;
-  text-align: center;
-  padding: 10px 20px;
-  margin-left: 2rem;
-  font-size: 16px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  cursor: pointer;
-  background: #12fc2d;
-  color: rgba(0, 0, 0, 0.8);
 }
 
 h1 {
