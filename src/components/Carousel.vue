@@ -4,23 +4,21 @@
 
     <!-- Navigation -->
     <div class="navigate">
-      <div v-show="currentSlide != 1 && currentSlide != 6" class="toggle-page left">
-        <i @click="prevSlide" class="fas fa-chevron-left"></i>
+      <div v-show="currentSlide != 1 && currentSlide != 6" class="toggle-page left" @click="prevSlide">
+        <i class="fas fa-chevron-left"></i>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
-
 export default {
   data() {
-    return {
+    return {
       currentSlide: 1,
       getSlideCount: null,
-      finished: false
-    }
+      finished: false,
+    };
   },
   mounted() {
     this.getSlideCount = document.querySelectorAll(".container").length;
@@ -39,15 +37,12 @@ export default {
         return;
       }
       this.currentSlide += 1;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-
-
 <style lang="scss" scoped>
-
 .navigate {
   padding: 0 16px;
   height: 100vh;
@@ -60,8 +55,33 @@ export default {
   background-position: center;
 
   .toggle-page {
+    cursor: pointer;
     display: flex;
     flex: 1;
+
+    &.left {
+      height: 100%;
+      width: 10%;
+      background-color: rgba(0, 0, 0, 0.24);
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      transform-origin: center;
+    }
+
+    &.left:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+      transform: scale(1.15);
+    }
+
+    i {
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+    }
   }
 
   i {
@@ -76,10 +96,5 @@ export default {
     color: #fff;
     transition: 0.8s ease all;
   }
-
-  i:hover {
-    background-color: #00afea;
-  } 
 }
-
 </style>

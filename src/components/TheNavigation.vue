@@ -157,8 +157,9 @@ header {
       align-items: center;
 
       img {
-        width: 50px;
+        width: 70px;
         transition: 0.5s ease all;
+        border-radius: 20px;
       }
     }
 

@@ -2,8 +2,8 @@
 
 <template>
   <div class="home">
-    <h1>Bienvenido a CarFinder tu guía de coches para cualquiera que sea tu estilo al bolante</h1>
-    <span>Descubre tus gustos, aquellos que no sabías que tenias con CarFinder</span>
+    <h1>Bienvenido a CarFinder tu guía de coches para cualquiera que sea tu estilo al volante</h1>
+    <span>Descubre tus gustos, aquellos que no sabías que tenías con CarFinder</span>
     <div class="container">
       <router-link class="btn btn-primary-1" to="/questions">Buscar coches</router-link>
     </div>
@@ -67,7 +67,7 @@ export default {
   top: 0;
   left: 0;
   font-family: 'Lato', sans-serif;
-  background-image: url("../assets/logo.png");
+  background-image: url("../assets/mainImage.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
