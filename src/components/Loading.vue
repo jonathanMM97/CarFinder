@@ -22,7 +22,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    animation: rotate 10s linear infinite;
+    animation: rotate 2.5s linear infinite;
 }
 
 @keyframes rotate {
