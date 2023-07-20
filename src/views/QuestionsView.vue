@@ -19,13 +19,23 @@
     </div>
   </Carousel>
 
-  <a class="product" v-show="showProducts" v-for="vehicules in vehicules" :href="vehicules.link">
-    <img class="item" :src="vehicules.image">
-    <div class="product__info">
-      <h1>{{ vehicules.title }}</h1>
-      <h2>{{ vehicules.price }} €</h2>
+  <div class="show">
+    <div class="nav-search">
+      <button class="more-questions">Continuar respondiendo preguntas</button>
     </div>
-  </a>
+    <div class="product" v-show="showProducts">
+      <a v-for="vehicules in vehicules" :key="vehicules.id" :href="vehicules.link" class="product">
+        <div class="product-container">
+          <img class="item" :src="vehicules.image">
+          <div class="product__info">
+            <h1>{{ vehicules.title }}</h1>
+            <h2>{{ vehicules.price.toLocaleString('en', { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0, minimumIntegerDigits: 1 }) }} €</h2>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -200,45 +210,92 @@ export default {
       }
   }
 }
+/* Estilos generales */
+.show {
+  display: flex;
+  margin-top: 6.7rem;
+  gap: 10px;
+}
+
+
+/* Barra lateral izquierda */
+.nav-search {
+  flex: 0 0 300px; /* Ancho fijo de la barra lateral */
+  padding: 10px; /* Espaciado interno */
+  background-color: transparent; /* Color de fondo de la barra lateral */
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor de productos */
+.product {
+  flex: 1; /* El contenedor de productos ocupará el espacio restante */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Alinea los productos al inicio */
+  color: black
+}
 
 .product {
-  display: flex;
-  width: 500px;
-  height: 250px;
-  align-items: center;
-  margin-bottom: 2rem;
-  background: #fff;
-  border-radius: 20%;
-  .item{
-    width: 250px;
-    height: 250px;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-  }
+  flex-basis: calc(25% - 10px);
+  margin: 3px;
+  text-decoration: none;
+}
 
-  &__info{
-    text-decoration: none;
-    margin-left: 0.5rem;
-    width: 250px;
-    height: 250px;
-    color: red;
-    h1{
-      width: 100%;
-      height: 20%;
-      font-size: 16px;
-      color: rgba(0, 0, 0, 0.8);
-    }
-    h2 {
-      width: 100%;
-      height: 25%;
-      text-align: center;
-    }
-    .item-link {
-      text-decoration: none;
-      color: #00afea;
-    }
+.product-container {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  border: 2px solid transparent;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+@media (min-width: 768px) {
+  .product {
+    max-width: calc(100/3);
   }
 }
+
+.product-container:hover {
+  border: 2px solid #00afea;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.item {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.product__info {
+  display: flex;
+  flex-direction: column; /* Mostrar los elementos h1 y h2 uno debajo del otro */
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+}
+
+.product__info h1 {
+  font-size: 24px;
+}
+.product__info h2 {
+  color: coral;
+}
+
+.more-questions {
+  width: 100%;
+  height: 100px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-size: 16px;
+  background: #74f339;
+}
+
+
+
 
 /* Responsive Styles */
 
