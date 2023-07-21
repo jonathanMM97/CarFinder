@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <Vehicule :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
+    <Vehicule :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
   </div>
 </template>
 
@@ -63,15 +63,11 @@ export default {
       vehicules: []
     }
   },
-  mounted() {
-    this.getSlideCount = document.querySelectorAll(".container").length;
-  },
   methods: {
     async sendAnswer() {
       await axios.post("http://localhost:8080/quiz/answer/bulk",this.checked);
       await axios.get("http://localhost:8080/quiz/result", {withCredentials: true})
       .then(response => this.vehicules = response.data);
-      console.log(this.vehicules);
       this.changeShowProducts();
     },
     changeImage(answerText){
@@ -88,9 +84,10 @@ export default {
     },
     getImage() {
       return this.image;
-    },
+    }
   },
-  async mounted(){
+  async created(){
+    this.getSlideCount = document.querySelectorAll(".container").length;
     this.vehicules = [];
     let result = await axios.get("http://localhost:8080/quiz/round");
     this.list = result.data;
@@ -113,6 +110,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100vh;
+  transition: background-image 0.8s ease;
 
   h1 {
     font-size: 32px;

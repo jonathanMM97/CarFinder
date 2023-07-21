@@ -8,7 +8,6 @@ import TheNavigation from './components/TheNavigation.vue';
   <div class="main">
     <router-view></router-view>
   </div>
-  
 </template>
 
 <style scoped>

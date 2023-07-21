@@ -11,18 +11,18 @@
 <style lang="scss" scoped>
 
 .load {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    top: 50rem;
-    left: 50rem;
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 40%;
+    left: 40%;
 }
 
 .rim-image {
     position: absolute;
     width: 100%;
     height: 100%;
-    animation: rotate 2.5s linear infinite;
+    animation: rotate 3s linear infinite;
 }
 
 @keyframes rotate {
