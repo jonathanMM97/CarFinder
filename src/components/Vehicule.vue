@@ -1,7 +1,22 @@
 <template>
-  <div v-show="true" class="show">
-    <div class="nav-search">
-      <button @click="llamada" class="more-questions">Búsqueda mas avanzada</button>
+  <div v-show="showProducts" class="show">
+    <div v-show="showNavSearch" class="nav-search">
+      <button @click="llamada" class="more-questions">
+        <img class="plus" src="../assets/add.png">
+        Nuevas preguntas
+      </button>
+      <button @click="changevisible" class="hide-slidebar">
+        <span class="material-symbols-outlined">
+          dock_to_right
+        </span>
+      </button>
+    </div>
+    <div v-show="!showNavSearch" class="hide-navSearch">
+      <button @click="changevisible" class="hide-slidebar">
+        <span class="material-symbols-outlined">
+          dock_to_right
+        </span>
+      </button>
     </div>
     <div class="product" v-show="!newCarousel">
       <a v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product">
@@ -20,9 +35,10 @@
 <script>
 
 export default {
-  props:['vehicules', 'showCarouselAgain'],
+  props:['vehicules', 'showCarouselAgain', 'showProducts'],
   data() {
     return {
+      showNavSearch: true,
       isVisible: true,
       currentSlides: null,
       newCarousel: false,
@@ -31,6 +47,9 @@ export default {
   methods: {
     llamada() {
       this.showCarouselAgain();
+    },
+    changevisible() {
+      this.showNavSearch = !this.showNavSearch;
     }
   }
 };
@@ -52,6 +71,23 @@ export default {
   padding: 10px; /* Espaciado interno */
   background-color: transparent; /* Color de fondo de la barra lateral */
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.nav-search button {
+  display: inline-block; /* Muestra los botones uno al lado del otro */
+  margin-right: 10px; /* Espacio de 10px entre los botones (ajusta según tus preferencias) */
+  vertical-align: middle; /* Alinea verticalmente los elementos del botón */
+}
+
+.hide-navSearch {
+  flex: 0 0 50px;
+  padding: 10px;
+  background: transparent;
+
+
+  button {
+    width: 100%;
+  }
 }
 
 /* Contenedor de productos */
@@ -114,18 +150,33 @@ export default {
 }
 
 .more-questions {
-  width: 100%;
-  height: 100px;
+  width: 70%;
+  height: 50px;
   border-radius: 20px;
   text-transform: uppercase;
   font-size: 16px;
-  background: #74f339;
+  background: transparent;
+
+  .plus {
+    width: 20px;
+    height: 20px;
+    left: 0;
+    right: 2rem;
+  }
 }
 
-.advanceProduct {
-  width: 100%;
-  height: 100%;
+.hide-slidebar {
+  width: 20%;
+  height: 50px;
+  border-radius: 40%;
+  background: transparent;
 }
 
+button {
+  cursor: pointer;
+}
+button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
 
 </style>

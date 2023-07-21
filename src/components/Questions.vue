@@ -15,8 +15,8 @@
 
     <div class="manage-questions" v-show="manageQuestions" v-if="list.length > 0">
       <div class="btn">
-        <input class="btn search-q" type="text">
-        <a @click="showInfoQuest(question.id)" class="questions" v-for="(question, i) in sortedList" :key="question.id">
+        <input class="btn search-q" type="text" placeholder="Busca por id o por texto..." v-model="text">
+        <a v-show="match(question)" @click="showInfoQuest(question.id)" class="questions" v-for="(question, i) in sortedList" :key="question.id">
           <div class="text-quest">
             {{ question.id }} {{ question.text }}
             <i @click.stop="hideInfoQuest(question.id)" v-show="isInfoQuest(question.id)" class="fa-solid fa-xmark fa-lg"></i>
@@ -57,6 +57,7 @@ export default {
   components: { Loading},
   data() {
     return {
+      text: '',
       isLoading: false,
       infoQuest: {},
       list: [],
@@ -68,12 +69,31 @@ export default {
       const uniqueList = Array.from(new Set(this.list.map(item => item.id)));
       const sortedUniqueList = uniqueList.sort((a, b) => a - b);
       return sortedUniqueList.map(id => this.list.find(item => item.id === id));
-    }
+    },
   },
   async mounted() {
     this.getQuestions();
   },
   methods: {
+    match(question) {
+      if(this.text !== '' )
+      {
+        switch(true) {
+          case question.id === this.text : return true;
+          case question.text.includes(this.text): return true;
+        }
+        for( const answer of question.answers) 
+        {
+          if(answer.id === this.text)
+            return true;
+          if(answer.text.includes(this.text))
+            return true;
+        }
+        return false;
+      }else{
+        return true;
+      }
+    },
     showInfoQuest(index) {
       this.infoQuest[index] = true;
     },
@@ -123,7 +143,6 @@ export default {
     async getQuestions() {
       try {
         let response = await axios.get('http://localhost:8080/question', { withCredentials: true });
-        console.log(response.data);
         this.list = [...response.data];
         this.manageQuestions = true;
       } catch (error) {
@@ -142,8 +161,8 @@ export default {
 <style lang="scss" scoped>
 
 .restore {
-  margin-top: 20vh;
-  margin-left: 60vh;
+  margin-top: 10rem;
+  margin-left: 30rem;
   button {
       padding: 10px 20px;
       margin-left: 2rem;
@@ -161,30 +180,6 @@ export default {
   .btn-add {
       background: #74f339;
       color: rgba(0, 0, 0, 0.8);
-    }
-}
-.load {
-    position: fixed;
-    width: 150px;
-    height: 150px;
-    top: 40%;
-    left: 40%;
-}
-
-.rim-image {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    animation: rotate 3s linear infinite;
-}
-
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
     }
 }
 
@@ -207,9 +202,10 @@ h1 {
     flex-direction: row;
 
     input {
-      padding: 10px 100px;
-      font-size: 16px;
+      padding: 10px 20px; /* Padding vertical de 15px y sin padding horizontal */
+      font-size: 16px; /* Ajusta el tamaño de fuente según tus preferencias */
       border-radius: 20px;
+      width: 400px;
     }
 
     button {

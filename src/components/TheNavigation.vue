@@ -16,13 +16,23 @@
               <ul v-show="infoNav" class="info-nav">
                 <span class="user-name">{{ user.name }}</span>
                 <div class="dropdown-menu" v-show="showSubMenu">
-                    <a class="nav-link" href="http://localhost:8080/logout">Logout</a>
+                    <a class="nav-link" href="http://localhost:8080/logout">
+                      <span class="material-symbols-outlined">
+                        logout
+                      </span>
+                      Logout
+                    </a>
                 </div>
               </ul>
             </transition>
         </div>
         <div v-else class="login">
-            <router-link class="login__link" to="/login">Iniciar Sesión</router-link>
+            <router-link class="login__link" to="/login">
+              <span class="material-symbols-outlined">
+                login
+              </span>
+              Iniciar Sesión
+            </router-link>
         </div>
       </ul>
       <div class="icon">
@@ -130,10 +140,17 @@ header {
 
     ul,
     .nav-link {
+      display: flex;
+      align-items: left;
       font-weight: 500;
       color: #fff;
       list-style: none;
       text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-link span {
+      margin-right: 5px;
     }
 
     li{
@@ -171,7 +188,9 @@ header {
     }
 
     .login__link {
+      display: flex;
       text-transform: uppercase;
+      align-items: center;
       border: 2px solid #fff;
       border-radius: 20px;
       padding: 0 5px;
@@ -179,6 +198,10 @@ header {
       text-decoration-style: none;
       color: #fff;
       transition: 0.5s ease all;
+    }
+
+    .login__link span {
+      margin-right: 5px;
     }
 
     .login__link:hover {

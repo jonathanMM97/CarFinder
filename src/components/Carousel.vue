@@ -31,7 +31,6 @@ export default {
       this.currentSlide -= 1;
     },
     nextSlide() {
-      console.log("Siguiente");
       if (this.currentSlide === 5) {
         this.finished = true;
         return;
@@ -39,7 +38,6 @@ export default {
       this.currentSlide += 1;
     },
     changeShowProducts() {
-      console.log("Cambiado");
       this.showProducts = !this.showProducts;
     }
   }
@@ -50,7 +48,7 @@ export default {
 
 .navigate {
   padding: 0 16px;
-  height: 100vh;
+  height: auto;
   width: 100vh;
   margin-left: 3rem;
   position: absolute;
