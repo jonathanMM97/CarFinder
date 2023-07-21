@@ -1,21 +1,19 @@
-FROM node:20.4.0-alpine
+FROM node:20.4.0-alpine AS build
 
-RUN npm install -g http-server
-
-RUN mkdir /app
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install vite --save-dev
 
 COPY . .
 
 RUN npm run build
 
-EXPOSE 8081
+EXPOSE 5173
 
-CMD ["http-server", "dist"]
+# Run application
+CMD [ "npm", "run", "dev" ]
 
 #
 # # COPY .env ./

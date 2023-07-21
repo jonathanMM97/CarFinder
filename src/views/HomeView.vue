@@ -1,11 +1,12 @@
-
-
 <template>
   <div class="home">
     <h1>Bienvenido a CarFinder tu guía de coches para cualquiera que sea tu estilo al volante</h1>
     <span>Descubre tus gustos, aquellos que no sabías que tenías con CarFinder</span>
     <div class="container">
-      <router-link class="btn btn-primary-1" to="/questions">Buscar coches</router-link>
+      <router-link class="btn btn-primary-1 custom-button" to="/questions">
+        <span>Buscar coches</span>
+        <i></i>
+      </router-link>
     </div>
   </div>
 
@@ -67,7 +68,7 @@ export default {
   top: 0;
   left: 0;
   font-family: 'Lato', sans-serif;
-  background-image: url("../assets/mainImage.png");
+  background-image: url("../assets/mainBanner.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
@@ -89,12 +90,108 @@ export default {
     font-size: 16px;
     text-align: center;
     color: silver;
-    background-color: rgba(0, 0, 0, 0.8);
     border-radius: 20%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: auto;
   }
+  .custom-button {
+  position: relative;
+  background: #444;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  padding: 1rem 3rem;
+  transition: 0.2s;
+}
+
+.custom-button:hover {
+  letter-spacing: 0.2rem;
+  padding: 1.1rem 3.1rem;
+  background: #FF0000;
+  color: #FF0000;
+  animation: box 3s infinite;
+}
+
+.custom-button::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: #272822;
+}
+
+.custom-button span {
+  position: relative;
+  z-index: 1;
+}
+.custom-button i {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.custom-button i::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  left: 80%;
+  top: -2px;
+  border: 2px solid #FF0000;
+  background: #272822;
+  transition: 0.2s;
+}
+
+.custom-button:hover i::before {
+  width: 15px;
+  left: 20%;
+  animation: move 3s infinite;
+}
+
+.custom-button i::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  left: 20%;
+  bottom: -2px;
+  border: 2px solid #FF0000;
+  background: #272822;
+  transition: 0.2s;
+}
+
+.custom-button:hover i::after {
+  width: 15px;
+  left: 80%;
+  animation: move 3s infinite;
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes box {
+  0% {
+    box-shadow: #27272c;
+  }
+  50% {
+    box-shadow: 0 0 25px #FF0000;
+  }
+  100% {
+    box-shadow: #27272c;
+  }
+}
   .container{
     position: absolute;
     width: 100%;
@@ -102,27 +199,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    .btn{
-      background: #00afea;
-      padding: 10px 20px;
-      top: 17rem;
-      font-size: 20px;
-      font-family: 'Montserrat';
-      text-decoration: none;
-      cursor: pointer;
-      margin: 190px;
-      border-radius: 20px;
-      transition: 0.8s;
-      position: relative;
-      overflow: hidden;
-      color: rgba(0, 0, 0, 0.8);
-    }
-
-    .btn-primary-1:hover,
-    .btn-primary-2:hover{
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    }
   }
 }
 
