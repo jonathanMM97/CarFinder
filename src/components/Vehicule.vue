@@ -19,7 +19,7 @@
       </button>
     </div>
     <div class="product" v-show="!newCarousel">
-      <a v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product">
+      <a v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product" target="_blank">
         <div class="product-container">
           <img class="item" :src="vehiculo.image">
           <div class="product__info">
@@ -29,13 +29,14 @@
         </div>
       </a>
     </div>
+
   </div>
 </template>
 
 <script>
 
 export default {
-  props:['vehicules', 'showCarouselAgain', 'showProducts'],
+  props:['vehicules', 'showCarouselAgain', 'showProducts', 'addIteration'],
   data() {
     return {
       showNavSearch: true,
@@ -46,6 +47,7 @@ export default {
   },
   methods: {
     llamada() {
+      this.addIteration();
       this.showCarouselAgain();
     },
     changevisible() {
@@ -56,7 +58,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 
 .show {
   display: flex;
@@ -69,8 +70,9 @@ export default {
 .nav-search {
   flex: 0 0 300px; /* Ancho fijo de la barra lateral */
   padding: 10px; /* Espaciado interno */
-  background-color: transparent; /* Color de fondo de la barra lateral */
+  background-color: rgba(0, 0, 0, 0.1); /* Color de fondo de la barra lateral */
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+  margin-left: -10px;
 }
 
 .nav-search button {
