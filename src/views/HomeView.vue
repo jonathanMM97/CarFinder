@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <h1>Bienvenido a CarFinder tu guía de coches para cualquiera que sea tu estilo al volante</h1>
-    <span>Descubre tus gustos, aquellos que no sabías que tenías con CarFinder</span>
+    <h1>Bienvenido a CarFinder, tu guía para encontrar el coche ideal</h1>
+    <span></span>
     <div class="container">
       <router-link class="btn btn-primary-1 custom-button" to="/questions">
         <span>Buscar coches</span>
@@ -76,14 +76,14 @@ export default {
   flex-direction: column;
 
   h1 {
-    width: 50%;
+    width: 35%;
     font-size: 32px;
     text-align: center;
-    text-shadow: 2px 2px 4px #00b0ea56, 0px 0px 8px #00b0ea86;
-    color: rgba(0, 0, 0, 0.8) ;
-    margin-left: auto;
+    color: #afaeb3;
     margin-right: auto;
     margin-top: auto;
+    margin-left: 1rem;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), 8px 8px 10px rgba(0, 0, 0, 0.4);
   }
   
   span {
@@ -91,7 +91,6 @@ export default {
     text-align: center;
     color: silver;
     border-radius: 20%;
-    margin-left: auto;
     margin-right: auto;
     margin-bottom: auto;
   }
@@ -106,6 +105,8 @@ export default {
   font-size: 1rem;
   padding: 1rem 3rem;
   transition: 0.2s;
+  margin-top: auto;
+  margin-bottom: 18rem;
 }
 
 .custom-button:hover {
@@ -198,7 +199,7 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    margin-left: 9.3rem;
   }
 }
 
@@ -212,7 +213,7 @@ export default {
   background-size: cover;
   text-align: center;
   overflow: hidden;
-  
+
 }
 
 .home-info h2 {
@@ -245,10 +246,11 @@ export default {
     overflow: hidden;
     width: 400px;
     height: 500px;
-    background: linear-gradient(to bottom, #fff, #201f1d);
-    box-shadow: 0px 10px 10px #00afea;
-    border-radius: 20%;
-    color: #fff;
+    background: #161719;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    color: #afaeb3;
+    transition: transform 0.3s ease;
 
     .image-ftr {
       width: 100%;
@@ -267,15 +269,19 @@ export default {
     p{
       font-size: 16px;
       font-family: 'Lato', sans-serif;
-      color: #00afea;
+      color: #9d3426;
     }
 
     span {
       font-size: 32px;
       font-family: 'Lato', sans-serif;
-      color: rgba(0, 0, 0, 0.8);
+      color: #afaeb3;
       margin-bottom: 4rem;
     }
+
+    &:hover {
+    transform: scale(1.05);
+  }
   }
 }
 </style>
