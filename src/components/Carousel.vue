@@ -1,10 +1,10 @@
 <template>
   <div class="carousel">
-    <slot :currentSlide="currentSlide" :nextSlide="nextSlide" :showProducts="showProducts" :finished="finished" :changeShowProducts="changeShowProducts"></slot>
+    <slot :setCurrentSlides="setCurrentSlides" :currentSlide="currentSlide" :nextSlide="nextSlide" :showProducts="showProducts" :finished="finished" :changeShowProducts="changeShowProducts"></slot>
 
     <!-- Navigation -->
     <div class="navigate" v-show="!showProducts">
-      <div v-show="currentSlide != 1 && currentSlide != 6" class="toggle-page left" @click="prevSlide">
+      <div v-show="currentSlide != 1 && currentSlide != (currentSlides+1)" class="toggle-page left" @click="prevSlide">
         <i class="fas fa-chevron-left"></i>
       </div>
     </div>
@@ -23,6 +23,10 @@ export default {
     };
   },
   methods: {
+    setCurrentSlides(slides) {
+      this.currentSlides = slides;
+      console.log(this.currentSlides);
+    },
     prevSlide() {
       if (this.currentSlide === 1) {
         this.currentSlide = 1;
@@ -31,7 +35,7 @@ export default {
       this.currentSlide -= 1;
     },
     nextSlide() {
-      if (this.currentSlide === 5) {
+      if (this.currentSlide === this.currentSlides) {
         this.finished = true;
         return;
       }

@@ -16,12 +16,12 @@
       </div>
 
 
-      <div class="send"  v-show="finished && currentSlide === 5">
+      <div class="send"  v-show="finished && currentSlide === (list.length)">
         <button @click="sendAnswer" class="btn btn__link" >Terminar</button>
       </div>
     </div>
 
-    <Vehicule :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
+    <Vehicule :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
   </div>
 </template>
 
@@ -42,7 +42,7 @@ import sport from "../assets/sportCar.png"
 
 export default {
   components: {Vehicule},
-  props:['valorProp', 'QuestionId', 'currentSlide', 'nextSlide', 'showProducts', 'finished', 'changeShowProducts', 'showCarouselAgain'],
+  props:['valorProp', 'QuestionId', 'currentSlide', 'nextSlide', 'showProducts', 'finished', 'changeShowProducts', 'showCarouselAgain', 'addIteration', 'setCurrentSlides'],
   data() {
     return{
       showQuiz: false,
@@ -84,13 +84,14 @@ export default {
     },
     getImage() {
       return this.image;
-    }
+    },
   },
-  async created(){
+  async mounted(){
     this.getSlideCount = document.querySelectorAll(".container").length;
     this.vehicules = [];
-    let result = await axios.get("http://localhost:8080/quiz/round");
+    let result = await axios.get("http://localhost:8080/quiz/round", {withCredentials: true});
     this.list = result.data;
+    this.setCurrentSlides(result.data.length);
     console.log(result.data);
   }
 }
