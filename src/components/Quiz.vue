@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <Vehicule :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
+    <Vehicule v-slot="{ reestablisQuestions }" :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
   </div>
 </template>
 
@@ -29,6 +29,7 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 import Vehicule from '../components/Vehicule.vue'
 
 import clio from "../assets/clio.png"
@@ -96,6 +97,19 @@ export default {
     this.getSlideCount = document.querySelectorAll(".container").length;
     this.vehicules = [];
     let result = await axios.get("http://localhost:8080/quiz/round", {withCredentials: true});
+    if(result.data.length === 0)
+    {
+      console.log("HELLOOOOOO");
+      let confirmResult = window.confirm('¿Quiere restablecer?');
+      if (confirmResult) {
+        console.log("HELLOOOOOO");
+        let response = await axios.post("http://localhost:8080/quiz/reestablish", {withCredentials: true});
+        console.log(response);
+        confirmResult = window.confirm('Se reestablecieron las preguntas...');
+      }
+      result = await axios.get("http://localhost:8080/quiz/round", {withCredentials: true});
+    }
+    console.log(result.data);
     this.list = result.data;
     this.setCurrentSlides(this.list.length);
     console.log(result.data);

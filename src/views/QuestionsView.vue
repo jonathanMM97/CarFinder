@@ -17,8 +17,8 @@
 <script>
 import Carousel from '../components/Carousel.vue'
 import Quiz from '../components/Quiz.vue'
-
-
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 export default {
   components: {Carousel, Quiz},
