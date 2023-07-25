@@ -5,6 +5,9 @@
         <img class="plus" src="../assets/add.png">
         Nuevas preguntas
       </button>
+      <button @click="reestablisQuestions" class="more-questions">
+        Reestablecer Preguntas
+      </button>
       <button @click="changevisible" class="hide-slidebar">
         <span class="material-symbols-outlined">
           dock_to_right
@@ -34,6 +37,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   props:['vehicules', 'showCarouselAgain', 'showProducts', 'addIteration'],
@@ -52,6 +56,16 @@ export default {
     },
     changevisible() {
       this.showNavSearch = !this.showNavSearch;
+    },
+    async reestablisQuestions() {
+      console.log("HELLOOOOOO");
+      let confirmResult = window.confirm('¿Quiere restablecer?');
+      if (confirmResult) {
+        console.log("HELLOOOOOO");
+        let response = await axios.post("http://localhost:8080/quiz/reestablish", {withCredentials: true});
+        console.log(response);
+        confirmResult = window.confirm('Se reestablecieron las preguntas...');
+      }
     }
   }
 };

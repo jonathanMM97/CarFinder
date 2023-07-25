@@ -1,5 +1,5 @@
 <template>
-  <Carousel v-slot="{ currentSlide, nextSlide, showProducts, finished, changeShowProducts, setCurrentSlides }" v-show="!newCarousel">
+  <Carousel v-slot="{ currentSlide, nextSlide, showProducts, finished, changeShowProducts, setCurrentSlides}" v-show="!newCarousel">
     <Quiz v-show="!newCarousel" :setCurrentSlides="setCurrentSlides" :addIteration="addIteration" :showCarouselAgain="showCarouselAgain" :changeShowProducts="changeShowProducts" :finished="finished" :showProducts="showProducts" :nextSlide="nextSlide" :currentSlide="currentSlide" :valorProp="1" :QuestionId="0" @hideCarousel="isVisible = false">
       
     </Quiz>
