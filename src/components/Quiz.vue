@@ -17,6 +17,7 @@
 
 
       <div class="send"  v-show="finished && currentSlide === (list.length)">
+        
         <button @click="sendAnswer" class="btn btn__link" >Terminar</button>
       </div>
     </div>
