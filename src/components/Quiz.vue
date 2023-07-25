@@ -40,6 +40,9 @@ import monovolumen from "../assets/monovolumen.png"
 import priceCar from "../assets/priceCar.png"
 import security from "../assets/security.png"
 import sport from "../assets/sportCar.png"
+import van from "../assets/cargoVan.png"
+import tesla from "../assets/tesla.png"
+import electric from "../assets/electric.png"
 
 export default {
   components: {Vehicule},
@@ -53,13 +56,16 @@ export default {
       image: clio,
       images: [
         {link: clio, palabras:['funcional', 'ahorro', 'urbano', 'diarios', 'ciudad', 'sociales', 'funcional', 'prioridad', 'preocupación', 'calle', 'preferencia', 'novato']},
-        {link: expensive, palabras:['llamativo', 'avances', 'amplio', 'lujo']},
+        {link: expensive, palabras:['llamativo', 'amplio', 'lujo', 'clásico', 'elegante']},
         {link: jeep4x4, palabras:['aventurero', 'libertad', 'irregulares', 'mercancia', 'aire', 'energética', 'importancia']},
         {link: kilometres, palabras:['usado']},
         {link: monovolumen, palabras:['espacio', 'largos', 'familia', 'relajada', 'road', 'avanzados', 'confort']},
         {link: priceCar, palabras:['sofisticado', 'convencionales', 'elegante', 'media', 'cómoda', 'no tenga uso']},
         {link: security, palabras:['seguridad']},
         {link: sport, palabras:['dinámico', 'potencia', 'deportiva', 'equilibrio', 'rendimiento', 'experimentado']},
+        {link: van, palabras:['mercancías', 'carga', 'equipaje', 'equilibrio']},
+        {link: tesla, palabras:['avances', 'tecnológicos']},
+        {link: electric, palabras:['eficiencia', 'ahorro']},
       ],
       vehicules: []
     }

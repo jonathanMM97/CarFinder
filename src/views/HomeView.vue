@@ -19,24 +19,24 @@
     <div id="features" class="features">
     
       <div class="ftr feature-1">
-        <img class="image-ftr" src="../assets/carFinder.png">
-        <p>TODO EN UN MISMO LUGAR</p>
+        <img class="image-ftr image-ftr-1" src="../assets/logo.png">
+        <h3>TODO EN UN MISMO LUGAR</h3>
         <span>El mejor analizador de requisitos para coches</span>
-        Responde el simple cuestionario para obtener los resultados que necestias. Te mostraremos los coches que realmente estas buscando de acorde a tus gustos y te ofreceremos los diferentes enlaces
+        <p>Responde el simple cuestionario para obtener los resultados que necestias. Te mostraremos los coches que realmente estas buscando de acorde a tus gustos y te ofreceremos los diferentes enlaces.</p>
       </div>
 
       <div class="ftr feature-2">
-        <img class="image-ftr" src="../assets/carFinder.png">
-        <p>UNA SOLA BÚSQUEDA</p>
+        <img class="image-ftr" src="../assets/icekar-logo.png">
+        <h3>UNA SOLA BÚSQUEDA</h3>
         <span>Todas las plataformas en una sola búsqueda</span>
-        Se acabó visitar página por página y volver a introducir los modelos a los que estas interesados junto con todos los filtros que necesitas. Con CarFinder tendrás que introducir tus filtros una única vez.
+        <p>Se acabó visitar página por página y volver a introducir los modelos a los que estas interesados junto con todos los filtros que necesitas. Con CarFinder tendrás que introducir tus filtros una única vez.</p>
       </div>
 
       <div class="ftr feature-3">
-        <img class="image-ftr-1" src="../assets/filters.png">
-        <p>UNA CUESTIONARIO ANALIZADOR</p>
+        <img class="image-ftr" src="../assets/filters.png">
+        <h3>UNA CUESTIONARIO ANALIZADOR</h3>
         <span>Un cuestionario que analiza tus gustos y preferencias</span>
-        CarFinder te ofrece un cuestionario sencillo de preguntas muy rápidas de contestar, con esas respuestas encontrarás tu coche que necesitas y que siempre has querido encontrar pero que hasta ahora no habías encontrado debido a los filtros anticuados.
+        <p>CarFinder te ofrece un cuestionario sencillo de preguntas muy rápidas de contestar, con esas respuestas encontrarás tu coche que necesitas y que siempre has querido encontrar pero que hasta ahora no habías encontrado debido a los filtros anticuados.</p>
       </div>
     </div>
   </div>
@@ -195,7 +195,6 @@ export default {
 }
   .container{
     position: absolute;
-    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -253,20 +252,21 @@ export default {
     transition: transform 0.3s ease;
 
     .image-ftr {
-      width: 100%;
+      width: auto;
       height: 30%;
-      justify-content: center;
-      scale: 2;
+      margin: 1rem auto 0;
+      object-fit: cover;
     }
 
-    .image-ftr-1 {
-      width: 100%;
-      height: 30%;
-      justify-content: center;
-      scale: 1.1;
+    .image-ftr-1{
+      border-radius: 20px;
     }
 
-    p{
+    p {
+      margin: 2rem 1rem 1rem 1rem;
+    }
+
+    h3 {
       font-size: 16px;
       font-family: 'Lato', sans-serif;
       color: #9d3426;
@@ -276,12 +276,11 @@ export default {
       font-size: 32px;
       font-family: 'Lato', sans-serif;
       color: #afaeb3;
-      margin-bottom: 4rem;
     }
 
     &:hover {
-    transform: scale(1.05);
-  }
+      transform: scale(1.05);
+    }
   }
 }
 </style>
