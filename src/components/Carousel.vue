@@ -24,23 +24,9 @@ export default {
     };
   },
   methods: {
-    setCurrentSlides(slides) {
+    async setCurrentSlides(slides) {
       this.currentSlides = slides;
-      if(this.currentSlides === 0){
-        const confirmResult = window.confirm('¿Quiere restablecer?');
-        if (confirmResult) {
-          this.reestablishQuiz();
-        }
-      }
       console.log(this.currentSlides);
-    },
-    async reestablishQuiz(){
-      await axios.post('http://localhost:8080/quiz/reestablish', {withCredentials: true})
-        .then(response => {
-          console.log(response.data);
-        }).catch(error => {
-          console.error(error);
-      });
     },
     prevSlide() {
       if (this.currentSlide === 1) {

@@ -91,7 +91,7 @@ export default {
     this.vehicules = [];
     let result = await axios.get("http://localhost:8080/quiz/round", {withCredentials: true});
     this.list = result.data;
-    this.setCurrentSlides(result.data.length);
+    this.setCurrentSlides(this.list.length);
     console.log(result.data);
   }
 }
