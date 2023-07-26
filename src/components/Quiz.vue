@@ -161,6 +161,8 @@ export default {
 
   h1 {
     font-size: 32px;
+    font-family: 'Lato', sans-serif;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), 8px 8px 10px rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     text-align: center;
     color: #fff;
