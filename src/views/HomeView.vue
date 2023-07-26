@@ -26,7 +26,7 @@
       </div>
 
       <div class="ftr feature-2">
-        <img class="image-ftr" src="../assets/icekar-logo.png">
+        <img class="image-ftr image-ftr-2" src="../assets/icekar-logo.png">
         <h3>UNA SOLA BÚSQUEDA</h3>
         <span>Todas las plataformas en una sola búsqueda</span>
         <p>Se acabó visitar página por página y volver a introducir los modelos a los que estas interesados junto con todos los filtros que necesitas. Con CarFinder tendrás que introducir tus filtros una única vez.</p>
@@ -212,7 +212,7 @@ export default {
   background-size: cover;
   text-align: center;
   overflow: hidden;
-
+  padding-bottom: 2rem;
 }
 
 .home-info h2 {
@@ -260,6 +260,12 @@ export default {
 
     .image-ftr-1{
       border-radius: 20px;
+    }
+
+    .image-ftr-2{
+      border-radius: 20px;
+      background-color: #afaeb3;
+      padding: 1rem;
     }
 
     p {

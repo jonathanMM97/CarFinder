@@ -7,8 +7,8 @@
         </router-link>
       </div>
       <ul v-show="!mobile" class="navigation">
-        <li><router-link class="nav-link" to="/">Home</router-link></li>
-        <li><router-link class="nav-link" to="/questions">Products</router-link></li>
+        <li><router-link class="nav-link" to="/">Inicio</router-link></li>
+        <li><router-link class="nav-link" to="/questions">Encuentra tu vehículo</router-link></li>
         <li><router-link class="nav-link" to="/manage">Gestionar</router-link></li>
         <div v-if="user" class="dropdown" @click="toggleSubMenu">
             <img @click="showinfoNav" :src="user.pictureUrl" class="user-avatar">
