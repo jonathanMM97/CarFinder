@@ -4,7 +4,7 @@
     <v-slot></v-slot>
 
     <div v-show="currentSlide  === i + 1 && !showProducts" class="container" v-for="(item, i) in list" :key="i" v-bind:style="{'background-image': 'url(' + getImage() + ')'}">
-      
+
       <!-- Paginación -->
       <div class="pagination-container">
         <div v-for="(slide, index) in list" :key="index" class="pagination">
@@ -41,9 +41,10 @@ axios.defaults.withCredentials = true;
 import Vehicule from '../components/Vehicule.vue'
 
 import clio from "../assets/clio.png"
+import smart from "../assets/smart.png"
 import expensive from "../assets/expensive.png"
 import jeep4x4 from "../assets/jeep4x4.png"
-import kilometres from "../assets/kilometres.png"
+import oldCar from "../assets/oldCar.png"
 import monovolumen from "../assets/monovolumen.png"
 import priceCar from "../assets/priceCar.png"
 import security from "../assets/security.png"
@@ -64,17 +65,17 @@ export default {
       checked: [],
       image: clio,
       images: [
-        {link: clio, palabras:['funcional', 'ahorro', 'urbano', 'diarios', 'ciudad', 'sociales', 'funcional', 'prioridad', 'preocupación', 'calle', 'preferencia', 'novato']},
-        {link: expensive, palabras:['llamativo', 'amplio', 'lujo', 'clásico', 'elegante']},
-        {link: jeep4x4, palabras:['aventurero', 'libertad', 'irregulares', 'mercancia', 'aire', 'energética', 'importancia']},
-        {link: kilometres, palabras:['usado']},
-        {link: monovolumen, palabras:['espacio', 'largos', 'familia', 'relajada', 'road', 'avanzados', 'confort']},
-        {link: priceCar, palabras:['sofisticado', 'convencionales', 'elegante', 'media', 'cómoda', 'no tenga uso']},
-        {link: security, palabras:['seguridad']},
-        {link: sport, palabras:['dinámico', 'potencia', 'deportiva', 'equilibrio', 'rendimiento', 'experimentado']},
-        {link: van, palabras:['mercancías', 'carga', 'equipaje', 'equilibrio']},
-        {link: tesla, palabras:['avances', 'tecnológicos']},
         {link: electric, palabras:['eficiencia', 'ahorro']},
+        {link: clio, palabras:['funcional', 'diarios', 'funcional', 'prioridad', 'preocupación', 'preferencia', 'equilibrio', 'convencionales', 'importancia', 'media']},
+        {link: smart, palabras:['ahorro', 'urbano', 'ciudad', 'calle', 'novato', 'reducidos']},
+        {link: expensive, palabras:['lujo', 'clásico', 'elegante', 'reuniones', 'no tenga uso', 'sofisticado']},
+        {link: jeep4x4, palabras:['aventurero', 'libertad', 'irregulares', 'mercancia', 'aire']},
+        {link: oldCar, palabras:['usado']},
+        {link: monovolumen, palabras:['espacio', 'largos', 'familia', 'relajada', 'road', 'confort', 'cómoda', 'sin requerir']},
+        {link: security, palabras:['seguridad']},
+        {link: sport, palabras:['dinámico', 'potencia', 'deportiva', 'rendimiento', 'experimentado', 'llamativo', 'deportivo']},
+        {link: van, palabras:['mercancías', 'carga', 'equipaje', 'amplio']},
+        {link: tesla, palabras:['avances', 'tecnológicos', 'uso']},
       ],
       vehicules: []
     }
