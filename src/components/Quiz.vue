@@ -4,25 +4,32 @@
     <v-slot></v-slot>
 
     <div v-show="currentSlide  === i + 1 && !showProducts" class="container" v-for="(item, i) in list" :key="i" v-bind:style="{'background-image': 'url(' + getImage() + ')'}">
+      
+      <!-- Paginación -->
+      <div class="pagination-container">
+        <div v-for="(slide, index) in list" :key="index" class="pagination">
+          <img v-show="index + 1 >= currentSlide" src="../assets/rim.png" :style="{'opacity': index + 1 === currentSlide ? 1 : 0.4}" :class="{'fade-in-out' : index + 1 === currentSlide}">
+          <img v-show="index + 1 < currentSlide" src="../assets/tyre.png">
+        </div>
+      </div>
+
       <h1>{{ i+QuestionId+1 }}. {{ item.text }}</h1>
 
       <div class="q-answer">
         <div v-for="(answer, j) in item.answers" :key="j">
           <label :for="'question_' + i + valorProp + '_answer_' + j" @mouseover="changeImage(answer.text)">
-            <input type="radio" @click="nextSlide" :id="'question_' + i + valorProp + '_answer_' + j" :value="answer.id"  v-model="checked[i]">
+            <input type="radio" @click="multiCall()" :id="'question_' + i + valorProp + '_answer_' + j" :value="answer.id"  v-model="checked[i]">
               <span>{{ answer.text }}</span>
           </label>
         </div>
       </div>
 
-
       <div class="send"  v-show="finished && currentSlide === (list.length)">
-        
         <button @click="sendAnswer" class="btn btn__link" >Terminar</button>
       </div>
     </div>
 
-    <Vehicule v-slot="{ reestablisQuestions }" :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
+    <Vehicule :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
   </div>
 </template>
 
@@ -50,6 +57,7 @@ export default {
   props:['valorProp', 'QuestionId', 'currentSlide', 'nextSlide', 'showProducts', 'finished', 'changeShowProducts', 'showCarouselAgain', 'addIteration', 'setCurrentSlides'],
   data() {
     return{
+      currentIndex: 0,
       showQuiz: false,
       list: [],
       getSlideCount: null,
@@ -92,6 +100,23 @@ export default {
     },
     getImage() {
       return this.image;
+    },
+    isActive(index) {
+      console.log(this.currentPageIndex ? 1 : 0.2);
+      return index <= this.currentPageIndex ? 1 : 0.2;
+    },
+    nextCurrentIndex() {
+      console.log("Incrementado");
+      this.currentIndex++;
+    },
+    multiCall() {
+      this.nextSlide();
+      this.nextCurrentIndex();
+    }
+  },
+  computed: {
+    currentSlideIndex() {
+      return this.currentIndex;
     },
   },
   async mounted(){
@@ -240,5 +265,39 @@ export default {
   }
 }
 
+.pagination-container {
+  display: flex;         /* Configuración de flexbox */
+  height: 10vh;
+  flex-direction: row;  /* Asegura que los elementos estén en una línea */
+  justify-content: center; /* Opcional: centrar los elementos horizontalmente */
+  align-items: center;
+}
 
+.pagination {
+  /* Estilos adicionales para cada elemento de paginación, si es necesario */
+  margin-left: 100px; /* Ejemplo de margen entre elementos */
+  margin-right: 100px;
+}
+.pagination img {
+  width: 50px;
+  height: 50px;
+  opacity: 0.4;
+}
+
+.fade-in-out {
+  animation: fadeInOut 0.8s ease;
+}
+
+.fade-in-out:hover {
+  scale: 1.2;
+}
+
+@keyframes fadeInOut {
+  0%, 50% {
+    rotate: 0;
+  }
+  100% {
+    rotate: 180deg;
+  }
+}
 </style>
