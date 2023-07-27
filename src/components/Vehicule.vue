@@ -129,6 +129,14 @@ export default {
         confirmResult = window.confirm('Se reestablecieron las preguntas...');
       }
     }
+  },
+  async mounted() {
+    try {
+        const response = await axios.get("http://localhost:8080/quiz/result/2", { withCredentials: true });
+        this.localVehicules; // Asigna la respuesta a la variable this.vehicules
+      } catch (error) {
+        console.error(error); // Agrega un bloque de captura para manejar posibles errores
+      }
   }
 };
 </script>
