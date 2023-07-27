@@ -4,33 +4,6 @@ import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
 </script>
 
 <template>
-  <div v-show="false" class="LoginPage">
-        <h1>Login</h1>
-        <form class="login-form">
-
-          <div class="form-control">
-            <input type="text" required/>
-            <span></span>
-            <label>Email</label>
-          </div>
-
-          <div class="form-control">
-            <input type="password" required/>
-            <span></span>
-            <label class="text-label">Password</label>
-          </div>
-
-          <div class="pass">
-            <router-link class="pass__link" to="/login">Forgot Password?</router-link>
-          </div>
-
-          <input type="submit" value="Login">
-
-          <div class="signup">
-            Not a member? <router-link class="signup__link" to="/signup">Signup</router-link>
-          </div>
-        </form>
-  </div>
   <div class="login">
     <GoogleLoginButton />
   </div>
@@ -38,11 +11,14 @@ import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
 
 <style lang="scss" scoped>
 
-  .login{
-    position: fixed;
-    top: 50%;
-    left: 50%;
+  .login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajusta la altura al 100% de la ventana */
   }
+
+
   .LoginPage {
     position: absolute;
     top: 50%;
