@@ -1,5 +1,8 @@
 <template>
   <div v-show="showProducts" class="show">
+
+    <v-slot :localVehicules="localVehicules"></v-slot>
+
     <div v-show="showNavSearch" class="nav-search">
       <button @click="llamada" class="more-questions">
         <img class="plus" src="../assets/add.png">
@@ -35,7 +38,31 @@
         <span @click="sorterDefault" >Por defecto</span>
       </div>
 
-      <div class="product" v-show="!newCarousel">
+      <div class="product" v-show="!newCarousel && !showLocalVehicule">
+        <a v-show="productWrap" v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product" target="_blank">
+          <div class="product-container">
+            <img class="item" :src="vehiculo.image">
+            <div class="product__info">
+              <h1>{{ vehiculo.title }}</h1>
+              <h2>{{ vehiculo.price.toLocaleString('en', { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0, minimumIntegerDigits: 1 }) }} €</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="product-list" v-show="!newCarousel && !showLocalVehicule">
+        <a v-show="productList" v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product-list" target="_blank">
+          <div class="product-container-list">
+            <img class="item-list" :src="vehiculo.image">
+            <div class="product__info__list">
+              <h1>{{ vehiculo.title }}</h1>
+              <h2>{{ vehiculo.price.toLocaleString('en', { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0, minimumIntegerDigits: 1 }) }} €</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="product" v-show="!newCarousel && showLocalVehicule">
         <a v-show="productWrap" v-for="vehiculo in localVehicules" :key="vehiculo.id" :href="vehiculo.link" class="product" target="_blank">
           <div class="product-container">
             <img class="item" :src="vehiculo.image">
@@ -47,7 +74,7 @@
         </a>
       </div>
 
-      <div class="product-list" v-show="!newCarousel">
+      <div class="product-list" v-show="!newCarousel && showLocalVehicule">
         <a v-show="productList" v-for="vehiculo in localVehicules" :key="vehiculo.id" :href="vehiculo.link" class="product-list" target="_blank">
           <div class="product-container-list">
             <img class="item-list" :src="vehiculo.image">
@@ -71,6 +98,7 @@ export default {
   props:['vehicules', 'showCarouselAgain', 'showProducts', 'addIteration'],
   data() {
     return {
+      showLocalVehicule: false,
       sortFiler: false,
       productWrap: true,
       productList:false,
@@ -78,7 +106,7 @@ export default {
       isVisible: true,
       currentSlides: null,
       newCarousel: false,
-      localVehicules: this.vehicules ? [...this.vehicules] : null,
+      localVehicules: this.vehicules,
     }
   },
   methods: {
@@ -86,9 +114,10 @@ export default {
       this.sortFiler = !this.sortFiler;
     },
     sorterDefault() {
-      this.localVehicules = this.vehicules;
+      this.showLocalVehicule = false;
     },
     async sorterLowHigh() {
+      this.showLocalVehicule = true;
       try {
         const response = await axios.get("http://localhost:8080/quiz/result/1", { withCredentials: true });
         this.localVehicules = response.data; // Asigna la respuesta a la variable this.vehicules
@@ -97,6 +126,7 @@ export default {
       }
     },
     async sorterHighLow() {
+      this.showLocalVehicule = true;
       try {
         const response = await axios.get("http://localhost:8080/quiz/result/2", { withCredentials: true });
         this.localVehicules = response.data; // Asigna la respuesta a la variable this.vehicules
@@ -132,8 +162,8 @@ export default {
   },
   async mounted() {
     try {
-        const response = await axios.get("http://localhost:8080/quiz/result/2", { withCredentials: true });
-        this.localVehicules; // Asigna la respuesta a la variable this.vehicules
+        const response = await axios.get("http://localhost:8080/quiz/result", { withCredentials: true });
+        this.localVehicules = response.data; // Asigna la respuesta a la variable this.vehicules
       } catch (error) {
         console.error(error); // Agrega un bloque de captura para manejar posibles errores
       }
@@ -190,8 +220,8 @@ export default {
   padding: 10px;
   background: rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  width: 100%;
-  height: 2vh;
+  width: 100vw;
+  height: 4vh;
 }
 
 .filters span {
@@ -232,7 +262,7 @@ export default {
 /* Contenedor de productos */
 .product {
   overflow-y: auto; /* Habilita el scroll solo cuando el contenido excede el espacio disponible */
-  max-height: 81vh;
+  max-height: 80vh;
   margin-top: 2.4rem;
   flex: 1; /* El contenedor de productos ocupará el espacio restante */
   display: flex;

@@ -58,6 +58,7 @@ export default {
   props:['valorProp', 'QuestionId', 'currentSlide', 'nextSlide', 'showProducts', 'finished', 'changeShowProducts', 'showCarouselAgain', 'addIteration', 'setCurrentSlides'],
   data() {
     return{
+      afterSend: false,
       currentIndex: 0,
       showQuiz: false,
       list: [],
@@ -86,6 +87,7 @@ export default {
       await axios.get("http://localhost:8080/quiz/result", {withCredentials: true})
       .then(response => this.vehicules = response.data);
       this.changeShowProducts();
+      this.afterSend = true;
     },
     changeImage(answerText){
       for(const item of this.images)
