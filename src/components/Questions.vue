@@ -4,49 +4,53 @@
 
 
     <div class="restore">
-      <button @click="addAll" class="btn btn-add">
-        Restore questions
-      </button>
-      <button @click="deleteall" class="btn btn-delete">
-        <img class="trash-item" src="../assets/trash.png">
-        Delete all
-      </button>
+        <button @click="addAll" class="btn btn-add">
+            <img class="restore-icon" src="../assets/refresh-icon.png">
+            Reestablecer
+        </button>
+        <button @click="deleteall" class="btn btn-delete">
+            <div class="delete-buttons">
+                <img class="trash-item-static" src="../assets/icons8-trash_static.png">
+                <img class="trash-item-active" src="../assets/icons8-trash.gif">
+            </div>
+            Eliminar todas
+        </button>
     </div>
 
     <div class="manage-questions" v-show="manageQuestions" v-if="list.length > 0">
-      <div class="btn">
-        <input class="btn search-q" type="text" placeholder="Busca por id o por texto..." v-model="text">
-        <a v-show="match(question)" @click="showInfoQuest(question.id)" class="questions" v-for="(question, i) in sortedList" :key="question.id">
-          <div class="text-quest">
-            {{ question.id }} {{ question.text }}
-            <i @click.stop="hideInfoQuest(question.id)" v-show="isInfoQuest(question.id)" class="fa-solid fa-xmark fa-lg"></i>
-          </div>
-          <div v-show="isInfoQuest(question.id)" class="total-info">
-            <div class="quest-answer">
-              Respuestas:
-              <ul v-for="ask in question.answers">
-                <li class="items">
-                  {{ ask.text }}
-                  <button @click="deleteAnswer(ask.id, question.id, i)" class="btn btn-delete2">
-                    <img class="trash-item" src="../assets/trash.png">
-                    Delete
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <button @click="deleteQuestion(question.id)" class="btn btn-delete2">
-              <img class="trash-item" src="../assets/trash.png">
-              Delete
-            </button>
-          </div>
-        </a>
-      </div>
+        <div class="btn">
+            <input class="btn search-q" type="text" placeholder="Busca por id o por texto..." v-model="text">
+            <a v-show="match(question)" @click="showInfoQuest(question.id)" class="questions"
+               v-for="(question, i) in sortedList" :key="question.id">
+                <div class="text-quest">
+                    {{ question.id }} {{ question.text }}
+                    <i @click.stop="hideInfoQuest(question.id)" v-show="isInfoQuest(question.id)"
+                       class="fa-solid fa-xmark fa-lg"></i>
+                </div>
+                <div v-show="isInfoQuest(question.id)" class="total-info">
+                    <div class="quest-answer">
+                        Respuestas:
+                        <ul v-for="ask in question.answers">
+                            <li class="items">
+                                {{ ask.text }}
+                                <button @click="deleteAnswer(ask.id, question.id, i)" class="btn btn-delete2">
+                                    <img class="trash-item" src="../assets/trash.png">
+                                    Delete
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <button @click="deleteQuestion(question.id)" class="btn btn-delete2">
+                        <img class="trash-item" src="../assets/trash.png">
+                        Delete
+                    </button>
+                </div>
+            </a>
+        </div>
     </div>
 
     <Loading v-show="isLoading"></Loading>
 </template>
-
-
 
 
 <script>
@@ -153,35 +157,121 @@ export default {
 };
 
 
+
 </script>
 
 
-
-
 <style lang="scss" scoped>
-
 .restore {
+  display: flex;
+  margin-top: 10rem;
+  justify-content: center;
+  gap: 10px;
+
+  button.btn.btn-delete {
+    background: #ee4848;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #e28f97 0 -3px 0 inset;
+
+    .trash-item-static {
+      position:absolute;
+      background: #ee4848;
+    }
+
+    &:hover .trash-item-static {
+        opacity: 0;
+    }
+  }
+
+  button.btn {
+    align-items: center;
+    appearance: none;
+    background-color: #96b0f4;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #b6c3ed 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow 0.15s, transform 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+
+    img{
+      width: 24px;
+      height: 24px;
+      margin-right: 2px;
+    }
+
+    &:focus {
+      box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    }
+
+    &:hover {
+      box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      box-shadow: #D6D6E7 0 3px 7px inset;
+      transform: translateY(2px);
+    }
+
+    &:hover .restore-icon {
+      transform: rotate(360deg);
+      transition: transform 0.5s ease;
+    }
+  }
+}
+/*.restore {
   margin-top: 10rem;
   margin-left: 30rem;
   button {
       padding: 10px 20px;
       margin-left: 2rem;
       font-size: 16px;
-      border-radius: 20px;
+      border-radius: 10px;
       text-transform: uppercase;
       cursor: pointer;
       background: #ee4848;
       color: #fff;
+
       .trash-item{
         width: 15px;
         height: 15px;
       }
   }
   .btn-add {
-      background: #74f339;
+      background: #96b0f4;
       color: rgba(0, 0, 0, 0.8);
     }
+
+  .restore-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .btn-add:hover .restore-icon {
+    transform: rotate(360deg);
+    transition: transform 0.5s ease;
 }
+}*/
 
 h1 {
   position: absolute;
@@ -190,12 +280,10 @@ h1 {
 }
 
 .manage-questions {
-  position: absolute;
+  margin-top: 2rem;
   width: 100%;
   height: 100%;
-  top: 5.7rem;
   left: 0;
-  margin-top: 10rem;
   text-align: center;
 
   .btn {
@@ -297,4 +385,5 @@ h1 {
   i:hover{
     color: #ee4848;
   }
+
 </style>
