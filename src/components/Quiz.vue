@@ -154,7 +154,6 @@ export default {
   position: absolute;
   background-size: cover;
   background-position: center;
-  top: 6.7rem;
   left: 0;
   width: 100%;
   height: 100vh;
@@ -162,6 +161,8 @@ export default {
 
   h1 {
     font-size: 32px;
+    font-family: 'Lato', sans-serif;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), 8px 8px 10px rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     text-align: center;
     color: #fff;
@@ -174,7 +175,7 @@ export default {
     border-radius: 31px;
     justify-content: center;
     margin: 10px 30vh;
-    margin-top: 25rem;
+    margin-top: 20rem;
     padding: 8px;
     display: flex;
     gap: 10px;
@@ -223,11 +224,13 @@ export default {
   }
 
   .send {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .btn{
         background: rgba(0, 0, 0, 0.8);
         padding: 10px 20px;
         top: 1rem;
-        left: 50%;
         font-size: 20px;
         font-family: 'Montserrat';
         text-decoration: none;
@@ -267,6 +270,7 @@ export default {
 }
 
 .pagination-container {
+  margin-top: 6.7rem;
   display: flex;         /* Configuración de flexbox */
   height: 10vh;
   flex-direction: row;  /* Asegura que los elementos estén en una línea */
