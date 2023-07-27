@@ -5,13 +5,13 @@
         <img class="plus" src="../assets/add.png">
         Nuevas preguntas
       </button>
-      <button @click="reestablisQuestions" class="more-questions">
-        Reestablecer Preguntas
-      </button>
       <button @click="changevisible" class="hide-slidebar">
         <span class="material-symbols-outlined">
           dock_to_right
         </span>
+      </button>
+      <button @click="reestablisQuestions" class="more-questions">
+        Reestablecer Preguntas
       </button>
     </div>
     <div v-show="!showNavSearch" class="hide-navSearch">
@@ -24,13 +24,19 @@
     <div class="products-filter">
       <!-- Filters -->
       <div class="filters">
-        <span v-show="!productList" @click="changeAsList" class="material-symbols-outlined"> flex_wrap </span>
-        <span v-show="!productWrap" @click="changeAsWrap" class="material-symbols-outlined"> wrap_text </span>
-        <span class="material-symbols-outlined"> sort </span>
+        <span v-show="!productWrap" @click="changeAsWrap" class="material-symbols-outlined"> flex_wrap </span>
+        <span v-show="!productList" @click="changeAsList" class="material-symbols-outlined"> wrap_text </span>
+        <span @click="sortProduct" class="material-symbols-outlined"> sort </span>
+      </div>
+
+      <div v-show="sortFiler" class="sort-filter">
+        <span @click="sorterLowHigh" >Precio: de mas barato a mas caro</span>
+        <span @click="sorterHighLow" >Precio: de mas caro a mas barato</span>
+        <span @click="sorterDefault" >Por defecto</span>
       </div>
 
       <div class="product" v-show="!newCarousel">
-        <a v-show="productWrap" v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product" target="_blank">
+        <a v-show="productWrap" v-for="vehiculo in localVehicules" :key="vehiculo.id" :href="vehiculo.link" class="product" target="_blank">
           <div class="product-container">
             <img class="item" :src="vehiculo.image">
             <div class="product__info">
@@ -42,10 +48,10 @@
       </div>
 
       <div class="product-list" v-show="!newCarousel">
-        <a v-show="productList" v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product-list" target="_blank">
+        <a v-show="productList" v-for="vehiculo in localVehicules" :key="vehiculo.id" :href="vehiculo.link" class="product-list" target="_blank">
           <div class="product-container-list">
-            <img class="item" :src="vehiculo.image">
-            <div class="product__info">
+            <img class="item-list" :src="vehiculo.image">
+            <div class="product__info__list">
               <h1>{{ vehiculo.title }}</h1>
               <h2>{{ vehiculo.price.toLocaleString('en', { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 0, minimumIntegerDigits: 1 }) }} €</h2>
             </div>
@@ -65,15 +71,39 @@ export default {
   props:['vehicules', 'showCarouselAgain', 'showProducts', 'addIteration'],
   data() {
     return {
+      sortFiler: false,
       productWrap: true,
       productList:false,
       showNavSearch: true,
       isVisible: true,
       currentSlides: null,
       newCarousel: false,
+      localVehicules: this.vehicules ? [...this.vehicules] : null,
     }
   },
   methods: {
+    sortProduct() {
+      this.sortFiler = !this.sortFiler;
+    },
+    sorterDefault() {
+      this.localVehicules = this.vehicules;
+    },
+    async sorterLowHigh() {
+      try {
+        const response = await axios.get("http://localhost:8080/quiz/result/1", { withCredentials: true });
+        this.localVehicules = response.data; // Asigna la respuesta a la variable this.vehicules
+      } catch (error) {
+        console.error(error); // Agrega un bloque de captura para manejar posibles errores
+      }
+    },
+    async sorterHighLow() {
+      try {
+        const response = await axios.get("http://localhost:8080/quiz/result/2", { withCredentials: true });
+        this.localVehicules = response.data; // Asigna la respuesta a la variable this.vehicules
+      } catch (error) {
+        console.error(error); // Agrega un bloque de captura para manejar posibles errores
+      }
+    },
     changeAsList() {
       this.productWrap = false;
       this.productList = true;
@@ -104,8 +134,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .show {
+  position: fixed;
   display: flex;
   margin-top: 6.7rem;
 }
@@ -129,7 +159,8 @@ export default {
 .hide-navSearch {
   flex: 0 0 50px;
   padding: 10px;
-  background: transparent;
+  margin-left: -10px;
+  background: rgba(0, 0, 0, 0.1);
 
 
   button {
@@ -144,16 +175,15 @@ export default {
 }
 
 .filters {
-  position:relative;
+  position: absolute;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px;
   background: rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin-top: 10px;
   width: 100%;
-  height: 25px;
+  height: 2vh;
 }
 
 .filters span {
@@ -161,8 +191,41 @@ export default {
   margin-left: 40px;
 }
 
+.filters span:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.sort-filter {
+  width: 300px;
+  height: 120px;
+  position:fixed;
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-top: 2.3rem;
+  margin-left: 7rem;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), 8px 8px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  background: #fff;
+
+  span {
+    margin-top: 1rem;
+  }
+}
+
+.sort-filter span:hover {
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
 /* Contenedor de productos */
 .product {
+  overflow-y: auto; /* Habilita el scroll solo cuando el contenido excede el espacio disponible */
+  max-height: 81vh;
+  margin-top: 2.4rem;
   flex: 1; /* El contenedor de productos ocupará el espacio restante */
   display: flex;
   flex-wrap: wrap;
@@ -172,41 +235,34 @@ export default {
 
 .product {
   flex-basis: calc(25% - 10px);
-  margin: 3px;
   text-decoration: none;
 }
 
 .product-list {
-  width: 100vh;
-  height: 100%;
-  margin-left: 30rem;
-  margin-right: 30rem;
   flex: 1; /* El contenedor de productos ocupará el espacio restante */
   display: flex;
   flex-direction: column;
 }
 
 .product-list {
-  margin: 3px;
-  margin-left: 10rem;
-  margin-right: 30rem;
+  overflow-y: auto; /* Habilita el scroll solo cuando el contenido excede el espacio disponible */
+  max-height: 81vh;
   text-decoration: none;
   color: black;
 }
 
 .product-container-list {
-  width: 100vh;
+  width: 77vw;
   display: flex;
+  margin-bottom: 10px;
   border: 2px solid transparent;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  text-align: center;
-  padding: 10px;
 }
 
 .product-container {
   width: 300px;
-  height: 300px;
+  height: 400px;
   display: flex;
   border: 2px solid transparent;
   flex-direction: column;
@@ -242,6 +298,12 @@ export default {
   margin-bottom: 10px;
 }
 
+.item-list {
+  width: 300px;
+  height: 300px;
+  flex: 0 0 auto;
+}
+
 .product__info {
   display: flex;
   flex-direction: column; /* Mostrar los elementos h1 y h2 uno debajo del otro */
@@ -257,9 +319,26 @@ export default {
   color: coral;
 }
 
+.product__info__list {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  flex-direction: column; /* Mostrar los elementos h1 y h2 uno debajo del otro */
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+}
+
+.product__info__list h1 {
+  font-size: 24px;
+}
+.product__info__list h2 {
+  color: coral;
+}
+
 .more-questions {
   width: 70%;
   height: 50px;
+  margin-top: 2rem;
   border-radius: 20px;
   text-transform: uppercase;
   font-size: 16px;
@@ -276,6 +355,7 @@ export default {
 .hide-slidebar {
   width: 20%;
   height: 50px;
+  margin-top: 2rem;
   border-radius: 40%;
   background: transparent;
 }
