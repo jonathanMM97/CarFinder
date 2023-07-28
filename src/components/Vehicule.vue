@@ -250,7 +250,7 @@ export default {
   background: #fff;
 
   span {
-    margin-top: 1rem;
+    padding: 10px;
   }
 }
 

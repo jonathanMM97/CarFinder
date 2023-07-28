@@ -25,7 +25,10 @@
       </div>
 
       <div class="send"  v-show="finished && currentSlide === (list.length)">
-        <button @click="sendAnswer" class="btn btn__link" >Terminar</button>
+        <button @click="sendAnswer" class="btn btn__link" >
+          Terminar
+        </button>
+        <img class="submit_icon" src="../assets/wheelSubmitIcon.png">
       </div>
     </div>
 
@@ -225,31 +228,62 @@ export default {
     box-shadow: inset 0 0 0 10px #00005c;
   }
 
-  .send {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .btn{
-        background: rgba(0, 0, 0, 0.8);
-        padding: 10px 20px;
-        top: 1rem;
-        font-size: 20px;
-        font-family: 'Montserrat';
-        text-decoration: none;
-        cursor: pointer;
-        border-radius: 10%;
-        transition: 0.8s;
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
-        color: #fff;
+    .send {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .submit_icon {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        right: 54.5%;
+        z-index: 2;
+        transition: transform 0.4s ease;
       }
-      .btn__link:hover{
-        background: #00afea;
-        color: rgba(0, 0, 0, 0.8);
+
+      .btn__link:hover + .submit_icon {
+          transform: rotate(180deg);
       }
+
+      .btn{
+          background: #161719;
+          padding: 10px 50px;
+          font-size: 20px;
+          font-family: 'Montserrat';
+          text-decoration: none;
+          cursor: pointer;
+          border-radius: 10%;
+          transition: 0.8s;
+          position: relative;
+          z-index: 1;
+          overflow: hidden;
+          color: #fff;
+
+        &__link:hover {
+          background: #afaeb3;
+          color: rgba(0, 0, 0, 0.8);
+        }
+
+        &:active {
+          background: #9d3426;
+        }
+
+        &:active + .submit_icon {
+          animation: rotateAndTranslate 0.5s forwards;
+        }
+      }
+    }
+    @keyframes rotateAndTranslate {
+      0% {
+        transform: translateX(0%) rotate(0deg);
+      }
+      100% {
+        transform: translateX(315%) rotate(180deg);
+      }
+    }
   }
-}
 
 @media (max-width: 980px) {
   .container {

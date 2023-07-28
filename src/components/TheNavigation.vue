@@ -20,7 +20,7 @@
                       <span class="material-symbols-outlined">
                         logout
                       </span>
-                      Logout
+                      Cerrar sesión
                     </a>
                 </div>
               </ul>
@@ -239,6 +239,7 @@ header {
       background-color: rgba(0, 0, 0, 0.8);
       top: 6.7rem;
       left: 80%;
+      padding-bottom: 10px;
     }
 
     .dropdown-nav {
