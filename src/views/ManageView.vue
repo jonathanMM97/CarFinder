@@ -2,7 +2,7 @@
   <Questions v-slot="{ manageQuestions }">
     <div v-show="!manageQuestions">
       <img class="not-permission" src="../assets/notPermission.png">
-      <h1>Esta pagina solo es visible para usuarios autenticados</h1>
+      <h1>Esta página solo es visible para usuarios autenticados</h1>
     </div>
   </Questions>
   
