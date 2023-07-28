@@ -35,14 +35,14 @@
                                 {{ ask.text }}
                                 <button @click="deleteAnswer(ask.id, question.id, i)" class="btn btn-delete2">
                                     <img class="trash-item" src="../assets/trash.png">
-                                    Delete
+                                    Eliminar
                                 </button>
                             </li>
                         </ul>
                     </div>
                     <button @click="deleteQuestion(question.id)" class="btn btn-delete2">
                         <img class="trash-item" src="../assets/trash.png">
-                        Delete
+                        Eliminar todas
                     </button>
                 </div>
             </a>
