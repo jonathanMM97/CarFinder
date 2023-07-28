@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <Vehicule :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
+    <Vehicule :sortHightLow="sortHightLow" :sortLowHight="sortLowHight" :sorterDefault="sorterDefault" :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
   </div>
 </template>
 
@@ -84,10 +84,21 @@ export default {
   methods: {
     async sendAnswer() {
       await axios.post("http://localhost:8080/quiz/answer/bulk",this.checked);
-      await axios.get("http://localhost:8080/quiz/result", {withCredentials: true})
-      .then(response => this.vehicules = response.data);
+      this.sorterDefault();
       this.changeShowProducts();
       this.afterSend = true;
+    },
+    async sortHightLow() {
+      await axios.get("http://localhost:8080/quiz/result/1", {withCredentials: true})
+      .then(response => this.vehicules = response.data);
+    },
+    async sortLowHight() {
+      await axios.get("http://localhost:8080/quiz/result/2", {withCredentials: true})
+      .then(response => this.vehicules = response.data);
+    },
+    async sorterDefault() {
+      await axios.get("http://localhost:8080/quiz/result", {withCredentials: true})
+      .then(response => this.vehicules = response.data);
     },
     changeImage(answerText){
       for(const item of this.images)
