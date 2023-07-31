@@ -16,6 +16,9 @@
       <button @click="reestablisQuestions" class="more-questions">
         Reestablecer Preguntas
       </button>
+      <div class="filters-questions" v-for="index in filtersQuestions">
+
+      </div>
     </div>
     <div v-show="!showNavSearch" class="hide-navSearch">
       <button @click="changevisible" class="hide-slidebar">
@@ -33,13 +36,15 @@
       </div>
 
       <div v-show="sortFiler" class="sort-filter">
-        <span @click="sortLowHight" >Precio: de mas barato a mas caro</span>
-        <span @click="sortHightLow" >Precio: de mas caro a mas barato</span>
-        <span @click="sorterDefault" >Por defecto</span>
+        <span @click="sort(1)" >Precio: de mas barato a mas caro</span>
+        <span @click="sort(2)" >Precio: de mas caro a mas barato</span>
+        <span @click="sort(3)" >Por defecto</span>
       </div>
 
-      <div class="product" v-show="!newCarousel">
-        <a v-show="productWrap" v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product" target="_blank">
+      <p>Mostrando: ({{ vehicules.length }}) resultados</p>
+
+      <div class="product" v-show="!newCarousel && productWrap">
+        <a v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product" target="_blank">
           <div class="product-container">
             <img class="item" :src="vehiculo.image">
             <div class="product__info">
@@ -50,8 +55,8 @@
         </a>
       </div>
 
-      <div class="product-list" v-show="!newCarousel">
-        <a v-show="productList" v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product-list" target="_blank">
+      <div class="product-list" v-show="!newCarousel && productList">
+        <a v-for="vehiculo in vehicules" :key="vehiculo.id" :href="vehiculo.link" class="product-list" target="_blank">
           <div class="product-container-list">
             <img class="item-list" :src="vehiculo.image">
             <div class="product__info__list">
@@ -71,7 +76,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 export default {
-  props:['vehicules', 'showCarouselAgain', 'showProducts', 'addIteration', 'sortHightLow', 'sortLowHight', 'sorterDefault'],
+  props:['vehicules', 'showCarouselAgain', 'showProducts', 'addIteration', 'sortHightLow', 'sortLowHight', 'sorterDefault', 'hideCurrentIteration'],
   data() {
     return {
       sortFiler: false,
@@ -87,6 +92,14 @@ export default {
     sortProduct() {
       this.sortFiler = !this.sortFiler;
     },
+    sort(value) {
+      this.sortProduct();
+      switch(value) {
+        case 1: this.sortLowHight();break;
+        case 2: this.sortHightLow();break;
+        case 3: this.sorterDefault();break;
+      }
+    },
     changeAsList() {
       this.productWrap = false;
       this.productList = true;
@@ -96,6 +109,7 @@ export default {
       this.productList = false;
     },
     llamada() {
+      this.hideCurrentIteration();
       this.addIteration();
       this.showCarouselAgain();
     },
@@ -124,6 +138,7 @@ export default {
 /* Barra lateral izquierda */
 .nav-search {
   flex: 0 0 300px; /* Ancho fijo de la barra lateral */
+  height: 100vw;
   padding: 10px; /* Espaciado interno */
   background-color: rgba(0, 0, 0, 0.1); /* Color de fondo de la barra lateral */
   border-right: 1px solid rgba(0, 0, 0, 0.2);
@@ -159,7 +174,6 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 10px;
   background: rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   width: 100vw;
@@ -202,23 +216,31 @@ export default {
 }
 
 /* Contenedor de productos */
+
+p {
+  font-family: 'Lato', sans-serif;
+  margin-top: 2.4rem;
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 .product {
   overflow-y: auto; /* Habilita el scroll solo cuando el contenido excede el espacio disponible */
-  max-height: 80vh;
-  margin-top: 2.4rem;
+  max-height: 77vh;
+  //********add responsive wrap******
   flex: 1; /* El contenedor de productos ocupará el espacio restante */
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start; /* Alinea los productos al inicio */
-  color: black
+  color: black;
 }
 
 .product {
-  flex-basis: calc(25% - 10px);
+  flex-basis: calc(33% - 10px);
   text-decoration: none;
 }
 
 .product-list {
+  margin-top: 1rem;
   flex: 1; /* El contenedor de productos ocupará el espacio restante */
   display: flex;
   flex-direction: column;
@@ -227,6 +249,7 @@ export default {
 .product-list {
   overflow-y: auto; /* Habilita el scroll solo cuando el contenido excede el espacio disponible */
   max-height: 81vh;
+  margin-top: -16px;
   text-decoration: none;
   color: black;
 }
@@ -253,11 +276,13 @@ export default {
 
 @media (min-width: 768px) {
   .product {
+    flex-basis: calc(25% - 10px);
     max-width: calc(100/3);
   }
 
   .product-list {
     max-width: 100%;
+    margin-top: 0.2rem;
   }
 }
 
