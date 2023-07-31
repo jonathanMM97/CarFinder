@@ -150,13 +150,11 @@ export default {
       this.showNavSearch = !this.showNavSearch;
     },
     async reestablisQuestions() {
-      console.log("HELLOOOOOO");
-      let confirmResult = window.confirm('¿Quiere restablecer?');
+    let confirmResult = window.confirm('¿Quiere restablecer sus respuestas y comenzar el cuestionario de nuevo?');
       if (confirmResult) {
-        console.log("HELLOOOOOO");
         let response = await axios.post("http://localhost:8080/quiz/reestablish", {withCredentials: true});
         console.log(response);
-        confirmResult = window.confirm('Se reestablecieron las preguntas...');
+        confirmResult = window.confirm('Se reestablecieron las respuestas...');
       }
     }
   },

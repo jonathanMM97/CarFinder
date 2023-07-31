@@ -15,7 +15,7 @@
     width: 150px;
     height: 150px;
     top: 40%;
-    left: 40%;
+    left: 45%;
 }
 
 .rim-image {
