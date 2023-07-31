@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <Vehicule :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
+    <Vehicule :sortHightLow="sortHightLow" :hideCurrentIteration="hideCurrentIteration" :sortLowHight="sortLowHight" :sorterDefault="sorterDefault" :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
   </div>
 </template>
 
@@ -58,9 +58,10 @@ import electric from "../assets/electric.png"
 
 export default {
   components: {Vehicule},
-  props:['valorProp', 'QuestionId', 'currentSlide', 'nextSlide', 'showProducts', 'finished', 'changeShowProducts', 'showCarouselAgain', 'addIteration', 'setCurrentSlides'],
+  props:['valorProp', 'QuestionId', 'currentSlide', 'nextSlide', 'showProducts', 'finished', 'changeShowProducts', 'showCarouselAgain', 'addIteration', 'setCurrentSlides', 'hideCurrentIteration'],
   data() {
     return{
+      iconToRight: false,
       afterSend: false,
       currentIndex: 0,
       showQuiz: false,
@@ -87,10 +88,21 @@ export default {
   methods: {
     async sendAnswer() {
       await axios.post("http://localhost:8080/quiz/answer/bulk",this.checked);
-      await axios.get("http://localhost:8080/quiz/result", {withCredentials: true})
-      .then(response => this.vehicules = response.data);
+      this.sorterDefault();
       this.changeShowProducts();
       this.afterSend = true;
+    },
+    async sortHightLow() {
+      await axios.get("http://localhost:8080/quiz/result/1", {withCredentials: true})
+      .then(response => this.vehicules = response.data);
+    },
+    async sortLowHight() {
+      await axios.get("http://localhost:8080/quiz/result/2", {withCredentials: true})
+      .then(response => this.vehicules = response.data);
+    },
+    async sorterDefault() {
+      await axios.get("http://localhost:8080/quiz/result", {withCredentials: true})
+      .then(response => this.vehicules = response.data);
     },
     changeImage(answerText){
       for(const item of this.images)
@@ -268,19 +280,19 @@ export default {
           background: #9d3426;
         }
 
-        &:active + .submit_icon {
+        /*&:active + .submit_icon {
           animation: rotateAndTranslate 0.5s forwards;
-        }
+        }*/
       }
     }
-    @keyframes rotateAndTranslate {
+    /*@keyframes rotateAndTranslate {
       0% {
         transform: translateX(0%) rotate(0deg);
       }
       100% {
         transform: translateX(315%) rotate(180deg);
       }
-    }
+    }*/
   }
 
 @media (max-width: 980px) {
