@@ -93,11 +93,11 @@ export default {
       this.afterSend = true;
     },
     async sortHightLow() {
-      await axios.get("http://localhost:8080/quiz/result/1", {withCredentials: true})
+      await axios.get("http://localhost:8080/quiz/result/2", {withCredentials: true})
       .then(response => this.vehicules = response.data);
     },
     async sortLowHight() {
-      await axios.get("http://localhost:8080/quiz/result/2", {withCredentials: true})
+      await axios.get("http://localhost:8080/quiz/result/1", {withCredentials: true})
       .then(response => this.vehicules = response.data);
     },
     async sorterDefault() {
