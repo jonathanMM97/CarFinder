@@ -27,6 +27,8 @@
         </span>
       </button>
     </div>
+
+    {{ filters }}
     <div class="products-filter">
       <!-- Filters -->
       <div class="filters">
