@@ -6,7 +6,7 @@
     <div v-show="showNavSearch" class="nav-search">
       <button @click="llamada" class="more-questions">
         <img class="plus" src="../assets/add.png">
-        Nuevas preguntas
+        Más preguntas
       </button>
       <button @click="changevisible" class="hide-slidebar">
         <span class="material-symbols-outlined">
@@ -14,7 +14,7 @@
         </span>
       </button>
       <button @click="reestablisQuestions" class="more-questions">
-        Reestablecer Preguntas
+        Reiniciar Preguntas
       </button>
       <div class="filters-questions" v-for="index in filtersQuestions">
 
@@ -117,7 +117,7 @@ export default {
       this.showNavSearch = !this.showNavSearch;
     },
     async reestablisQuestions() {
-      let confirmResult = window.confirm('¿Quiere restablecer?');
+      let confirmResult = window.confirm('¿Quiere restablecer sus respuestas y comenzar el cuestionario de nuevo?');
       if (confirmResult) {
         let response = await axios.post("http://localhost:8080/quiz/reestablish", {withCredentials: true});
         confirmResult = window.confirm('Se reestablecieron las preguntas...');
@@ -143,6 +143,52 @@ export default {
   background-color: rgba(0, 0, 0, 0.1); /* Color de fondo de la barra lateral */
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   margin-left: -10px;
+
+  button {
+    align-items: center;
+    appearance: none;
+    background-color: #9d3426;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #e28f97 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow 0.15s, transform 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    color: black;
+
+    &:first-child:hover {
+      background-color: rgba(187, 166, 29, 0.7);
+    }
+
+    &:focus {
+      box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    }
+
+    &:hover {
+      box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+      transform: translateY(-2px);
+    }
+  }
 }
 
 .nav-search button {
@@ -159,7 +205,45 @@ export default {
 
 
   button {
-    width: 100%;
+    align-items: center;
+    appearance: none;
+    background-color: #9d3426;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #e28f97 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow 0.15s, transform 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    color: black;
+
+    &:focus {
+      box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    }
+
+    &:hover {
+      box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+      transform: translateY(-2px);
+    }
   }
 }
 

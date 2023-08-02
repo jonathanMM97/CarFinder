@@ -2,8 +2,12 @@
 
     <v-slot :manageQuestions="manageQuestions" :isLoading="isLoading"></v-slot>
 
+    <div v-show="!manageQuestions">
+        <img class="not-permission" src="../assets/notPermission.png">
+        <h1>Esta página solo es visible para usuarios autenticados</h1>
+    </div>
 
-    <div class="restore">
+    <div class="restore" v-show="manageQuestions">
         <button @click="addAll" class="btn btn-add">
             <img class="restore-icon" src="../assets/refresh-icon.png">
             Reestablecer
@@ -282,6 +286,7 @@ h1 {
 
 .manage-questions {
   margin-top: 2rem;
+  margin-bottom: 2rem;
   width: 100%;
   height: 100%;
   left: 0;
@@ -387,5 +392,11 @@ h1 {
     color: #ee4848;
   }
 
+  .not-permission {
+      margin-top: 20rem;
+      margin-left: 20rem;
+      width: 200px;
+      height: 200px;
+  }
 
 </style>
