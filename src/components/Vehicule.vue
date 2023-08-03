@@ -147,6 +147,10 @@ export default {
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   margin-left: -10px;
 
+  h1 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  }
+
   button {
     align-items: center;
     appearance: none;
