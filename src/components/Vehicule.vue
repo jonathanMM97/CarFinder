@@ -16,9 +16,12 @@
       <button @click="reestablisQuestions" class="more-questions">
         Reiniciar Preguntas
       </button>
-      <div class="filters-questions" v-for="index in filtersQuestions">
 
-      </div>
+      <h1>Filtros aplicados</h1>
+      <ul class="filters-questions" v-for="f in filter">
+          <li>{{f.internalIdentificator}} </li>
+      </ul>
+
     </div>
     <div v-show="!showNavSearch" class="hide-navSearch">
       <button @click="changevisible" class="hide-slidebar">
@@ -76,7 +79,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 export default {
-  props:['vehicules', 'showCarouselAgain', 'showProducts', 'addIteration', 'sortHightLow', 'sortLowHight', 'sorterDefault', 'hideCurrentIteration'],
+  props:['vehicules', 'showCarouselAgain', 'showProducts', 'addIteration', 'sortHightLow', 'sortLowHight', 'sorterDefault', 'hideCurrentIteration', 'filter'],
   data() {
     return {
       sortFiler: false,
@@ -247,6 +250,16 @@ export default {
   }
 }
 
+.filters-questions {
+  list-style: none;
+  display: flex; /* Utiliza flex para alinear el contenido a la izquierda */
+  justify-content: center;
+  margin-bottom: 5px; /* Espaciado entre elementos de la lista */
+  padding: 8px 15px; /* Espaciado interno para un aspecto más vistoso */
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4); /* Agrega un borde para un estilo destacado */
+  border-radius: 5px;
+}
 .products-filter {
   display: flex;
   flex-direction: column;

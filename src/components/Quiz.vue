@@ -3,7 +3,7 @@
 
     <v-slot></v-slot>
 
-    <div v-show="currentSlide  === i + 1 && !showProducts" class="container" v-for="(item, i) in list" :key="i" v-bind:style="{'background-image': 'url(' + getImage() + ')'}">
+    <div v-show="currentSlide  === i + 1 && !showProducts" class="container slide-animation" v-for="(item, i) in list" :key="i" v-bind:style="{'background-image': 'url(' + getImage() + ')'}">
 
       <!-- Paginación -->
       <div class="pagination-container">
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <Vehicule :sortHightLow="sortHightLow" :hideCurrentIteration="hideCurrentIteration" :sortLowHight="sortLowHight" :sorterDefault="sorterDefault" :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
+    <Vehicule :filter="filter" :sortHightLow="sortHightLow" :hideCurrentIteration="hideCurrentIteration" :sortLowHight="sortLowHight" :sorterDefault="sorterDefault" :addIteration="addIteration" :showProducts="showProducts" :vehicules="vehicules" :showCarouselAgain="showCarouselAgain"></Vehicule>
   </div>
 </template>
 
@@ -61,6 +61,7 @@ export default {
   props:['valorProp', 'QuestionId', 'currentSlide', 'nextSlide', 'showProducts', 'finished', 'changeShowProducts', 'showCarouselAgain', 'addIteration', 'setCurrentSlides', 'hideCurrentIteration'],
   data() {
     return{
+      filter: [],
       iconToRight: false,
       afterSend: false,
       currentIndex: 0,
@@ -90,7 +91,29 @@ export default {
       await axios.post("http://localhost:8080/quiz/answer/bulk",this.checked);
       this.sorterDefault();
       this.changeShowProducts();
+      this.getFilters();
       this.afterSend = true;
+    },
+    async getFilters() {
+      const fil = await axios.get("http://localhost:8080/quiz/higher", {withCredentials: true});
+      this.filter = fil.data;
+      let iterations = fil.length;
+      let aux = 0;
+
+      for(const cadena of this.filter)
+      {
+        aux += cadena.value;
+        for(let i = 0 ; i < cadena.internalIdentificator.length ; i++)
+          if(cadena.internalIdentificator[i].toUpperCase() === cadena.internalIdentificator[i])
+          {
+            cadena.internalIdentificator = cadena.internalIdentificator.substring(i);
+          }
+      }
+
+      for(const cadena of this.filter)
+      {
+        cadena.value = parseInt((cadena.value * 100)/aux);
+      }
     },
     async sortHightLow() {
       await axios.get("http://localhost:8080/quiz/result/2", {withCredentials: true})
@@ -168,11 +191,12 @@ export default {
 .container {
   position: absolute;
   background-size: cover;
-  background-position: center;
+  background-position: bottom center;
+  transition: background-image 0.5s ease;
+  opacity: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  transition: background-image 0.8s ease;
 
   h1 {
     font-size: 32px;
@@ -226,8 +250,8 @@ export default {
 
   label span:hover,
   input[type="radio"]:checked + span{
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
+    background: #b5b3b3;
+    color: black;
   }
 
   label span:before {
@@ -294,6 +318,39 @@ export default {
       }
     }*/
   }
+
+  .slide-animation {
+  /* Animación de entrada */
+  animation: slideIn 0.5s forwards;
+}
+
+.slide-animation.exit-active {
+  /* Animación de salida */
+  animation: slideOut 0.5s forwards;
+}
+
+
+  @keyframes slideIn {
+  from {
+    background-position: bottom center; /* Desplazar la imagen de fondo hacia abajo */
+    opacity: 0;
+  }
+  to {
+    background-position: top center; /* Desplazar la imagen de fondo hacia arriba */
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    background-position: top center; /* Desplazar la imagen de fondo hacia arriba */
+    opacity: 1;
+  }
+  to {
+    background-position: bottom center; /* Desplazar la imagen de fondo hacia abajo */
+    opacity: 0;
+  }
+}
 
 @media (max-width: 980px) {
   .container {
