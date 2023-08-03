@@ -143,13 +143,11 @@ export default {
     let result = await axios.get("http://localhost:8080/quiz/round", {withCredentials: true});
     if(result.data.length === 0)
     {
-      console.log("HELLOOOOOO");
-      let confirmResult = window.confirm('¿Quiere restablecer?');
+      let confirmResult = window.confirm('¿Quiere restablecer sus respuestas y comenzar el cuestionario de nuevo?');
       if (confirmResult) {
-        console.log("HELLOOOOOO");
         let response = await axios.post("http://localhost:8080/quiz/reestablish", {withCredentials: true});
         console.log(response);
-        confirmResult = window.confirm('Se reestablecieron las preguntas...');
+        confirmResult = window.confirm('Se reestablecieron las respuestas...');
       }
       result = await axios.get("http://localhost:8080/quiz/round", {withCredentials: true});
     }
